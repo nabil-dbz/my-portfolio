@@ -19,7 +19,7 @@ function addRandomHobby() {
   const hobbies =
       ['Coding!', 'Maths!', 'Soccer！', 'Chess!', 'Neuroscience'];
 
-  // Pick a random greeting.
+  // Pick a random hobby.
   const hobby = hobbies[Math.floor(Math.random() * hobbies.length)];
 
   // Add it to the page.
