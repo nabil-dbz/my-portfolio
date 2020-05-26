@@ -7,3 +7,9 @@
 #greeting-container {
   margin-top: 20px;
 }
+
+#my-pic {
+    max-width: 40%;
+    height: auto;
+    display: block;
+}
