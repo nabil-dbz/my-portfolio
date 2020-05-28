@@ -43,7 +43,20 @@ body {
     display: inline-block;
 }
 
+.contact-icon {
+    opacity: 0.6;
+}
+
+.contact-icon:hover {
+    opacity: 0.8;
+}
+
 #bio.row {
+    margin-top: 4%;
+    margin-bottom: 4%;
+}
+
+#contacts {
     margin-top: 4%;
     margin-bottom: 4%;
 }
