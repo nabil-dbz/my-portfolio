@@ -51,6 +51,14 @@ body {
     opacity: 0.8;
 }
 
+.nav-icon {
+    opacity: 0.8;
+}
+
+.nav-icon:hover {
+    opacity: 1.4;
+}
+
 #bio.row {
     margin-top: 4%;
     margin-bottom: 4%;
