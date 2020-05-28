@@ -36,6 +36,18 @@ body {
     margin: 0;
 }
 
+.divider.about-me-divider {
+    width: 30%;
+    background-color: grey;
+    text-align: center;
+    display: inline-block;
+}
+
+#bio.row {
+    margin-top: 4%;
+    margin-bottom: 4%;
+}
+
 #my-pic {
     max-width: 40%;
     height: auto;
