@@ -24,27 +24,54 @@
                 </ul>
             </div>
             <div class="col s2"></div>
-            <div class="col s6 center-align scrolling-box">
-                <!--About Me Section-->
-                <div id="about-me">
-                    <div class="sections-divider"></div>
+            <div class="col s6 center-align">
+                <div class="row header">
                     <div class="divider about-me-divider"></div> 
                     <h1 class="center-align intro-text" style="font-size:50px">NABIL DABOUZ</h1>
                     <h4 class="center-align intro-text">Computer Engineering Student | Google STEP Intern | Robotics Coordinator</h4>
-                    <!--Add a bio-->
-                    <div class="divider about-me-divider"></div>
-                    <div id="bio" class="row">
-                        <div class="col s2"></div>
-                        <img src="images/my-photo.JPG" class="col s3 circle responsive-img" style="opacity:0.8"/>
-                        <div class="col s1"></div>
-                        <p class="white-text col s4" style="font-family: cursive; font-size: 16px">"This is supposed to be a bio ... I'm a computer engineering student! My life is a mess! I don't know what to say but really I don't have the time to think about it so let's
-                            just talk about myself! Or you know what, forget it ... I think my life is full of adventures, I can tell you about it another time that's why you should keep coming back! I promise you won't regret it ;) ... " 
-                        </p>
-                        <div class="col s2"></div>
+                </div>
+                <div class="row scrolling-box">
+                    <!--About Me Section-->
+                    <div class="sections-divider"></div>
+                    <div id="about-me">
+                        <!--Add a bio-->
+                        <div class="divider about-me-divider"></div>
+                        <h1 class="center-align intro-text" style="font-size:50px">ABOUT ME</h1>
+                        <div id="bio" class="row">
+                            <div class="col s2"></div>
+                            <img src="images/my-photo.JPG" class="col s3 circle responsive-img" style="opacity:0.8"/>
+                            <div class="col s1"></div>
+                            <p class="white-text col s4" style="font-family: cursive; font-size: 16px">"This is supposed to be a bio ... I'm a computer engineering student! My life is a mess! I don't know what to say but really I don't have the time to think about it so let's
+                                just talk about myself! Or you know what, forget it ... I think my life is full of adventures, I can tell you about it another time that's why you should keep coming back! I promise you won't regret it ;) ... " 
+                            </p>
+                            <div class="col s2"></div>
+                        </div>
+                        <div class="divider about-me-divider"></div>
                     </div>
+                    <div class="sections-divider"></div>
+                    
+
+                    <!--Experience Section-->
+                    <div id="experience">
+                        <div class="divider about-me-divider"></div> 
+                        <h1 class="center-align intro-text" style="font-size:50px">EXPERIENCES</h1>
+                        <h4 class="center-align intro-text" id="experience-title">Google STEP Intern</h4>
+                        <div class="carousel companies">
+                            <a class="carousel-item" href="#one!" onclick="updateExperienceDescription('Google')"><img src="images/google.jpg"></a>
+                            <a class="carousel-item" href="#two!" onclick="updateExperienceDescription('Koc University')"><img src="images/koc.jpg"></a>
+                            <a class="carousel-item" href="#three!" onclick="updateExperienceDescription('Polytechnique Montreal')"><img src="images/polytechnique.jpg"></a>
+                            <a class="carousel-item" href="#four!" onclick="updateExperienceDescription('Fusion Jeunesse')"><img src="images/fusion.png"></a>
+                            <a class="carousel-item" href="#five!" onclick="updateExperienceDescription('World Learning')"><img src="images/world-learning.jpg"></a>
+                        </div>
+                        <p id="experience-description" calss="center-align"></p>
+                        <div class="divider about-me-divider"></div>
+                    </div>
+                    <div class="sections-divider"></div>
+                </div>
+                <div class="row footer">
                     <!--Add contacts-->
                     <div class="divider about-me-divider"></div>
-                    <div id="contacts" class="row s2">
+                    <div class="row contacts">
                         <div class="col s3"></div>
                         <div class="col s1"><a href="https://www.facebook.com/nible.usmiste.319"><img src="images/facebook.svg" class="circle responsive-img contact-icon"/></a></div>
                         <div class="col s1"><a href="https://www.instagram.com/dbznabil/"><img src="images/instagram.svg" class="circle responsive-img contact-icon"/></a></div>
@@ -54,29 +81,11 @@
                         <div class="col s1"><a href="https://twitter.com/DabouzNabil"><img src="images/twitter.svg" class="circle responsive-img contact-icon"/></a></div>
                         <div class="col s3"></div>
                     </div>
-                    <div id="adress-phone">
-                        <p class="white-text">+1(438) 340-7515</p>
-                        <p class="white-text">ndabouz@google.com</p>
-                        <p class="white-text">333 King Street North, Waterloo, Ontario</p>
+                    <div class="row adress-phone">
+                        <p class="white-text" style="margin:0">+1(438) 340-7515</p>
+                        <p class="white-text" style="margin:0">ndabouz@google.com</p>
+                        <p class="white-text" style="margin:0">333 King Street North, Waterloo, Ontario</p>
                     </div>
-                </div>
-                <div class="sections-divider"></div>
-                
-
-                <!--Experience Section-->
-                <div id="experience">
-                    <div class="divider about-me-divider"></div> 
-                    <h1 class="center-align intro-text" style="font-size:50px">EXPERIENCES</h1>
-                    <h4 class="center-align intro-text" id="experience-title">Google STEP Intern</h4>
-                    <div class="carousel companies">
-                        <a class="carousel-item" href="#one!" onclick="updateExperienceDescription('Google')"><img src="images/google.jpg"></a>
-                        <a class="carousel-item" href="#two!" onclick="updateExperienceDescription('Koc University')"><img src="images/koc.jpg"></a>
-                        <a class="carousel-item" href="#three!" onclick="updateExperienceDescription('Polytechnique Montreal')"><img src="images/polytechnique.jpg"></a>
-                        <a class="carousel-item" href="#four!" onclick="updateExperienceDescription('Fusion Jeunesse')"><img src="images/fusion.png"></a>
-                        <a class="carousel-item" href="#five!" onclick="updateExperienceDescription('World Learning')"><img src="images/world-learning.jpg"></a>
-                    </div>
-                    <p id="experience-description" calss="center-align"></p>
-                    <div class="sections-divider"></div>
                 </div>
             </div>
             <div class="col s3"></div>
