@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
-    <meta charset="UTF-8">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js"></script>
-  </head>
-  <body>
-    <div id="content">
-      <h1>Nabil's Portfolio</h1>
-      <p>This is the best portfolio you'll ever read!</p>
-      <p>My name is Nabil! I'm a computer engineering student at Polytechnique Montreal. I am spending the summer expanding my experience in Web development as part of the Google STEP internship!</p>
-      <p><img id="my-pic" src ="images/my-photo.JPG"/></p>
-      <button id="hobbies-button" onclick="addRandomHobby()">Click to see a random hobby</button>
-      <p id="hobby-container"><p>
-    </div>
-    <!-- Import materialize.js-->
-    <script type="text/javascript" src="js/materialize.js"></script>
+    <head>
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
+        <meta charset="UTF-8">
+        <title>My Portfolio</title>
+        <link rel="stylesheet" href="css/style.css">
+        <script src="js/script.js"></script>
+    </head>
+    <body>
+        <div class="row my-wrapper valign-wrapper">
+            <div class="col s1 center-align">
+                <ul>       
+                    <li class="card-panel transparent tab row s1 center-align"><a href="#about-me" class="grey-text text-lighten-3">About Me</a></li>
+                    <li class="card-panel transparent tab row s1 center-align"><a href="#education" class="grey-text text-lighten-3">Education</a></li>
+                    <li class="card-panel transparent tab row s1 center-align"><a href="#experience" class="grey-text text-lighten-3">Experience</a></li>
+                    <li class="card-panel transparent tab row s1 center-align"><a href="#activities" class="grey-text text-lighten-3">Activities</a></li>
+                    <li class="card-panel transparent tab row s1 center-align"><a href="#travels" class="grey-text text-lighten-3">Travels</a></li>
+                    <li class="card-panel transparent tab row s1 center-align"><a href="#hobbies" class="grey-text text-lighten-3">Hobbies</a></li>
+                </ul>
+            </div>
+            <div class="container center-align"> 
+                <h1 class="center-align intro-text" style="font-size:50px">NABIL DABOUZ</h1>
+                <h4 class="center-align intro-text">Computer Engineering Student | Google STEP Intern | Robotics Coordinator</h3>
+                <p class="grey-text">My name is Nabil! I'm a computer engineering student at Polytechnique Montreal. I am spending the summer expanding my experience in Web development as part of the Google STEP internship!</p>
+            </div>
+        </div>
+        <!-- Import materialize.js-->
+        <script type="text/javascript" src="js/materialize.js"></script>
   </body>
 </html>

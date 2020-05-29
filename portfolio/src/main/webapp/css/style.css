@@ -1,3 +1,12 @@
+body {
+    height: 100vh;
+    background-image: url("../images/background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
 #content {
   margin-left: auto;
   margin-right: auto;
@@ -6,6 +15,25 @@
 
 #greeting-container {
   margin-top: 20px;
+}
+
+.row .col.s1 {
+    margin: 0;
+}
+
+.intro-text {
+    color: white;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.row.my-wrapper.valign-wrapper {
+    height: 100%;
+}
+
+.card-panel.transparent.tab.row.s1.center-align {
+    margin: 0;
 }
 
 #my-pic {
