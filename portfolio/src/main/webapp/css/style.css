@@ -55,6 +55,13 @@ body {
     display: inline-block;
 }
 
+.divider.footer-divider {
+    width: 100%;
+    background-color: grey;
+    text-align: center;
+    display: inline-block;
+}
+
 .contact-icon {
     opacity: 0.6;
 }
