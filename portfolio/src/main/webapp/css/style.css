@@ -20,11 +20,12 @@ body {
 .scrolling-box {
     background-color: transparent;
     display: block;
-    height: 100vh;
+    height: 65vh;
     overflow-y: scroll;
+    overflow-x: hidden;
     scroll-behavior: smooth;
     text-align: center;
-    width: 100vw;
+    width: 100%;
     margin: 0;
 }
 
@@ -71,7 +72,7 @@ body {
 }
 
 .sections-divider {
-    height: 20vh;
+    height: 10vh;
 }
 
 .carousel.companies {
@@ -79,11 +80,6 @@ body {
 }
 
 #bio.row {
-    margin-top: 4%;
-    margin-bottom: 4%;
-}
-
-#contacts {
     margin-top: 4%;
     margin-bottom: 4%;
 }
@@ -98,4 +94,12 @@ body {
     color: white;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 22px;
+}
+
+.footer {
+    height: 15vh;
+}
+
+.header {
+    height: 20vh;
 }
