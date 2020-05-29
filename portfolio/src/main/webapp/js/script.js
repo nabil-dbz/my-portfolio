@@ -39,5 +39,27 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// Update the experience description
+function updateExperienceDescription(company) {
+    // Get the text element by id
+    var description = document.getElementById('experience-description');
+    switch (company) {
+        case 'Google':
+            description.innerText = 'Google STEP Intern 2020';
+            break;
+        case 'Koc University':
+            description.innerText = 'Koc University Undergraduate Reserach Program 2019';
+            break;
+        case 'Polytechnique Montreal':
+            description.innerText = 'Teaching Assistant 2019-2020';
+            break;
+        case 'Fusion Jeunesse':
+            description.innerText = 'Robotics Coordinator 2018-2020';
+            break;
+        case 'World Learning':
+            description.innerText = 'STEM Education Intern 2018';
+            break;
+    }
+}
 
 
