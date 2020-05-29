@@ -26,3 +26,18 @@ function addRandomHobby() {
   const hobbyContainer = document.getElementById('hobby-container');
   hobbyContainer.innerText = hobby;
 }
+
+// Intializing the carousel
+document.addEventListener('DOMContentLoaded', function() {
+    var elem = document.querySelector('.carousel');
+    M.Carousel.init(elem, {
+        dist: -100,
+        padding: 0,
+        numVisible: 5,
+        fullWidth: false,
+        indicators: false,
+    });
+});
+
+
+

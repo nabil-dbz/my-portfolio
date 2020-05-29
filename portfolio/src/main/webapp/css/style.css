@@ -74,6 +74,10 @@ body {
     height: 20vh;
 }
 
+.carousel.companies {
+    height: 20vh;
+}
+
 #bio.row {
     margin-top: 4%;
     margin-bottom: 4%;
