@@ -163,6 +163,8 @@ function setExperienceDescription(description, about, responsabilitiesTable) {
 
 function addListItem(text, nodeParent) {
     var item = document.createElement('li');
+    item.classList.add('left-align');
+    item.style.fontSize = '18px';
     item.innerText = text;
     nodeParent.appendChild(item);
 }

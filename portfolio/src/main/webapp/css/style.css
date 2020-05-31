@@ -46,6 +46,7 @@ body {
 
 .card-panel.transparent.tab.row.s1.center-align {
     margin: 0;
+    padding: 0.5vw;
 }
 
 .divider.about-me-divider {
@@ -108,9 +109,18 @@ body {
 }
 
 .header {
-    height: 20vh;
+    height: 15vh;
 }
 
 .collapsible {
     width: 95%;
+}
+
+.collapsible-body {
+    height: 15vh;
+    padding: 0;
+}
+
+.row.contacts {
+    margin: 0;
 }
