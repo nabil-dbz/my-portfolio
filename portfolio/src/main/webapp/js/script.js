@@ -53,24 +53,11 @@ const responsabilities = [
     ],
 ];
 
+// To store the rendered circles
 var circlesList = [];
+// Score of the game
 var score = 0;
 var nClickedCricles = 0;
-
-/**
- * Adds a random greeting to the page.
- */
-function addRandomHobby() {
-  const hobbies =
-      ['Coding!', 'Maths!', 'Soccer！', 'Chess!', 'Neuroscience'];
-
-  // Pick a random hobby.
-  const hobby = hobbies[Math.floor(Math.random() * hobbies.length)];
-
-  // Add it to the page.
-  const hobbyContainer = document.getElementById('hobby-container');
-  hobbyContainer.innerText = hobby;
-}
 
 // Intializing the carousel
 document.addEventListener('DOMContentLoaded', function() {
@@ -113,6 +100,7 @@ function updateExperienceDescription(company) {
     }
 }
 
+// Update the description and the list of responsibilities elements
 function setExperienceDescription(description, about, responsabilitiesTable) {
     description.innerHTML = '';
     var company = document.createElement('p');
@@ -125,6 +113,7 @@ function setExperienceDescription(description, about, responsabilitiesTable) {
     description.appendChild(responsibilitiesList);
 }
 
+// Add a list item to the list nodeParent
 function addListItem(text, nodeParent) {
     var item = document.createElement('li');
     item.innerText = text;
@@ -172,23 +161,29 @@ function createNewGame(parentNode) {
 // Change the color of the selected circles
 function selectRandomCircles() {
     var firstCircle = Math.floor(Math.random() * 9);
-    circlesList[firstCircle].node.setAttribute('fill', 'red');
-    circlesList[firstCircle].tagued = true;
+    selectCircle(circlesList[firstCircle]);
     var secondCircle = firstCircle;
+    // Look for a random second circle
     while (firstCircle === secondCircle) {
         secondCircle = Math.floor(Math.random() * 9);
     }
-    circlesList[secondCircle].node.setAttribute('fill', 'red');
-    circlesList[secondCircle].tagued = true;
+    selectCircle(circlesList[secondCircle]);
     var thirdCircle = secondCircle;
+    // Look for a random third circle
     while (thirdCircle === secondCircle || thirdCircle === firstCircle) {
         thirdCircle = Math.floor(Math.random() * 9);
     }
-    circlesList[thirdCircle].node.setAttribute('fill', 'red');
-    circlesList[thirdCircle].tagued = true;
+    selectCircle(circlesList[thirdCircle]);
+}
+
+// Select a circle
+function selectCircle(circle) {
+    circle.node.setAttribute('fill', 'red');
+    circle.tagued = true;
 }
 
 function launchGame() {
+    // Change the color of all circles to green
     for (var i = 0; i < 10; i++) {
         circlesList[i].node.setAttribute('fill', 'lightgreen');
     }
@@ -202,7 +197,7 @@ function launchGame() {
             }
             
         }  
-    }, 2000);
+    }, 3000);
 }
 
 function addScore() {
@@ -210,6 +205,7 @@ function addScore() {
     onCircleClick();
 }
 
+// This function gets called whenever a circle is clicked
 function onCircleClick() {
     nClickedCricles += 1;
     if (nClickedCricles === 3) {
