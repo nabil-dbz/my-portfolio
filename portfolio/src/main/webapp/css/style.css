@@ -110,3 +110,10 @@ body {
 .header {
     height: 20vh;
 }
+
+#game-field {
+    width: 100%;
+    height: 40vh;
+    background-color: white;
+    opacity: 0.8;
+}
