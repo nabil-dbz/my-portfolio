@@ -51,7 +51,9 @@ const responsabilities = [
         'Providing support in implementing new STEM regular workshops (Level Up Village - Energy for me)',
         'Providing guidance and support to the mentors in delivering their workshops',
     ],
-]
+];
+
+var circlesList = [];
 
 /**
  * Adds a random greeting to the page.
@@ -148,11 +150,31 @@ function onStart() {
 // Generate the elements of the game field
 function createNewGame(parentNode) {
     parentNode.innerHTML = '';
+    circlesList = [];
     for (var i = 0; i < 10; i++) {
         var cx = (Math.random() * 90 + 5).toFixed();
         var cy = (Math.random() * 90 + 5).toFixed();
-        parentNode.appendChild(createGreenCricle(cx + '%', cy + '%'));
+        var circle = createGreenCricle(cx + '%', cy + '%')
+        circlesList.push(circle);
+        parentNode.appendChild(circle);
     }
+    selectRandomCircles();
+}
+
+// Change the color of the selected circles
+function selectRandomCircles() {
+    var firstCircle = Math.floor(Math.random() * 9);
+    circlesList[firstCircle].setAttribute('fill', 'red');
+    var secondCircle = firstCircle;
+    while (firstCircle === secondCircle) {
+        secondCircle = Math.floor(Math.random() * 9);
+    }
+    circlesList[secondCircle].setAttribute('fill', 'red');
+    var thirdCircle = secondCircle;
+    while (thirdCircle === secondCircle || thirdCircle === firstCircle) {
+        thirdCircle = Math.floor(Math.random() * 9);
+    }
+    circlesList[thirdCircle].setAttribute('fill', 'red');
 }
 
 // Generate a green circle and return it
@@ -162,6 +184,6 @@ function createGreenCricle(cx, cy) {
     circle.setAttribute('cy', cy);
     circle.setAttribute('r', '5%');
     circle.setAttribute('stroke-width', '0');
-    circle.setAttribute('fill', 'green');
+    circle.setAttribute('fill', 'lightgreen');
     return circle;    
 }
