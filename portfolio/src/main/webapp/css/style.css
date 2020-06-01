@@ -36,6 +36,39 @@ body {
     margin: 0;
 }
 
+.divider.about-me-divider {
+    width: 30%;
+    background-color: grey;
+    text-align: center;
+    display: inline-block;
+}
+
+.contact-icon {
+    opacity: 0.6;
+}
+
+.contact-icon:hover {
+    opacity: 0.8;
+}
+
+.nav-icon {
+    opacity: 0.8;
+}
+
+.nav-icon:hover {
+    opacity: 1.4;
+}
+
+#bio.row {
+    margin-top: 4%;
+    margin-bottom: 4%;
+}
+
+#contacts {
+    margin-top: 4%;
+    margin-bottom: 4%;
+}
+
 #my-pic {
     max-width: 40%;
     height: auto;
