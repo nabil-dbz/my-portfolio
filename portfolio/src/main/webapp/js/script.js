@@ -54,6 +54,8 @@ const responsabilities = [
 ];
 
 var circlesList = [];
+var score = 0;
+var nClickedCricles = 0;
 
 /**
  * Adds a random greeting to the page.
@@ -133,8 +135,13 @@ function addListItem(text, nodeParent) {
 function onStart() {
     // Change the text inside the button
     var button = document.getElementById('start-button');
-    if (button !== undefined) {
+    if (button !== null) {
         button.innerText = 'Try Again!';
+    }
+    // Remove the win or lose message if it already exists
+    var message = document.getElementById('win-lose-msg');
+    if (message !== null) {
+        message.remove();
     }
     var newGame = document.getElementById('game-field');
     // Create a new field for the game
@@ -155,26 +162,71 @@ function createNewGame(parentNode) {
         var cx = (Math.random() * 90 + 5).toFixed();
         var cy = (Math.random() * 90 + 5).toFixed();
         var circle = createGreenCricle(cx + '%', cy + '%')
-        circlesList.push(circle);
+        circlesList.push({node: circle, tagued: false, vx: 0, vy: 0});
         parentNode.appendChild(circle);
     }
     selectRandomCircles();
+    setTimeout(launchGame, 3000);
 }
 
 // Change the color of the selected circles
 function selectRandomCircles() {
     var firstCircle = Math.floor(Math.random() * 9);
-    circlesList[firstCircle].setAttribute('fill', 'red');
+    circlesList[firstCircle].node.setAttribute('fill', 'red');
+    circlesList[firstCircle].tagued = true;
     var secondCircle = firstCircle;
     while (firstCircle === secondCircle) {
         secondCircle = Math.floor(Math.random() * 9);
     }
-    circlesList[secondCircle].setAttribute('fill', 'red');
+    circlesList[secondCircle].node.setAttribute('fill', 'red');
+    circlesList[secondCircle].tagued = true;
     var thirdCircle = secondCircle;
     while (thirdCircle === secondCircle || thirdCircle === firstCircle) {
         thirdCircle = Math.floor(Math.random() * 9);
     }
-    circlesList[thirdCircle].setAttribute('fill', 'red');
+    circlesList[thirdCircle].node.setAttribute('fill', 'red');
+    circlesList[thirdCircle].tagued = true;
+}
+
+function launchGame() {
+    for (var i = 0; i < 10; i++) {
+        circlesList[i].node.setAttribute('fill', 'lightgreen');
+    }
+    setTimeout(function() {
+        for (var i = 0; i < 10; i++) {
+            circlesList[i].node.setAttribute('cursor', 'pointer');
+            if (circlesList[i].tagued) {
+                circlesList[i].node.addEventListener('click', addScore);
+            } else {
+                circlesList[i].node.addEventListener('click', onCircleClick);
+            }
+            
+        }  
+    }, 2000);
+}
+
+function addScore() {
+    score += 1;
+    onCircleClick();
+}
+
+function onCircleClick() {
+    nClickedCricles += 1;
+    if (nClickedCricles === 3) {
+        createWinOrLoseMessage(score);
+        nClickedCricles = 0;
+        score = 0;                    
+    }
+}
+
+// Generate the win or lose message
+function createWinOrLoseMessage(score) {
+    var message = document.createElement('h6');
+    message.classList.add('white-text');
+    message.id = 'win-lose-msg';
+    var gameComponent = document.getElementById('memory-game');
+    gameComponent.prepend(message);
+    message.innerText = score === 3 ? 'Excellent Job!' : 'You May Wanna Try Again!';
 }
 
 // Generate a green circle and return it
@@ -185,5 +237,6 @@ function createGreenCricle(cx, cy) {
     circle.setAttribute('r', '5%');
     circle.setAttribute('stroke-width', '0');
     circle.setAttribute('fill', 'lightgreen');
+    circle.setAttribute('transform', 'translate(0,0)');
     return circle;    
 }
