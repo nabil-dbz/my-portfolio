@@ -187,17 +187,30 @@ function launchGame() {
     for (var i = 0; i < 10; i++) {
         circlesList[i].node.setAttribute('fill', 'lightgreen');
     }
+    // Create countdown text
+    var countdown =  document.createElement('h1');
+    countdown.style.opacity = 0.7;
+    countdown.style.color = 'white';
+    var gameComponent = document.getElementById('memory-game');
+    gameComponent.prepend(countdown);
+    countdown.innerText = 3;
     setTimeout(function() {
-        for (var i = 0; i < 10; i++) {
-            circlesList[i].node.setAttribute('cursor', 'pointer');
-            if (circlesList[i].tagued) {
-                circlesList[i].node.addEventListener('click', addScore);
-            } else {
-                circlesList[i].node.addEventListener('click', onCircleClick);
-            }
-            
-        }  
-    }, 3000);
+        countdown.innerText = 2;
+        setTimeout(function() {
+            countdown.innerText = 1;
+            setTimeout(function() {
+                for (var i = 0; i < 10; i++) {
+                    circlesList[i].node.setAttribute('cursor', 'pointer');
+                    if (circlesList[i].tagued) {
+                        circlesList[i].node.addEventListener('click', addScore);
+                    } else {
+                        circlesList[i].node.addEventListener('click', onCircleClick);
+                    }
+                }
+                countdown.remove();
+            }, 1000);
+        }, 1000);
+    }, 1000);
 }
 
 function addScore() {
