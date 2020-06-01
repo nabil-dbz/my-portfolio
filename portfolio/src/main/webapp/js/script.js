@@ -147,7 +147,12 @@ function onStart() {
 
 // Generate the elements of the game field
 function createNewGame(parentNode) {
-    parentNode.appendChild(createGreenCricle('10', '10'));
+    parentNode.innerHTML = '';
+    for (var i = 0; i < 10; i++) {
+        var cx = (Math.random() * 90 + 5).toFixed();
+        var cy = (Math.random() * 90 + 5).toFixed();
+        parentNode.appendChild(createGreenCricle(cx + '%', cy + '%'));
+    }
 }
 
 // Generate a green circle and return it
@@ -155,7 +160,7 @@ function createGreenCricle(cx, cy) {
     var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     circle.setAttribute('cx', cx);
     circle.setAttribute('cy', cy);
-    circle.setAttribute('r', '10');
+    circle.setAttribute('r', '5%');
     circle.setAttribute('stroke-width', '0');
     circle.setAttribute('fill', 'green');
     return circle;    
