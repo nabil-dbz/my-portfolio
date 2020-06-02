@@ -94,7 +94,6 @@ function addRandomHobby() {
 
 // Intializing materialize components
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Carousel
     var elem = document.querySelector('.carousel');
     M.Carousel.init(elem, {
         dist: -100,
@@ -103,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fullWidth: false,
         indicators: false,
     });
-    // Initialize Collapsible
+
     elem = document.querySelector('.collapsible');
     M.Collapsible.init(elem, {
         accordian: false,
