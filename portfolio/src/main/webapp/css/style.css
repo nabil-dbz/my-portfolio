@@ -17,6 +17,18 @@ body {
   margin-top: 20px;
 }
 
+.scrolling-box {
+    background-color: transparent;
+    display: block;
+    height: 65vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+}
+
 .row .col.s1 {
     margin: 0;
 }
@@ -43,6 +55,13 @@ body {
     display: inline-block;
 }
 
+.divider.footer-divider {
+    width: 100%;
+    background-color: grey;
+    text-align: center;
+    display: inline-block;
+}
+
 .contact-icon {
     opacity: 0.6;
 }
@@ -59,12 +78,15 @@ body {
     opacity: 1.4;
 }
 
-#bio.row {
-    margin-top: 4%;
-    margin-bottom: 4%;
+.sections-divider {
+    height: 10vh;
 }
 
-#contacts {
+.carousel.companies {
+    height: 20vh;
+}
+
+#bio.row {
     margin-top: 4%;
     margin-bottom: 4%;
 }
@@ -75,18 +97,16 @@ body {
     display: block;
 }
 
-#hobbies-button {
-    transition-duration: 0.4s;
-    background-color: lightgray;
-    text-align: center;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 16px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    border: none;
+#experience-description {
+    color: white;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 22px;
 }
 
-#hobbies-button:hover {
-    background-color: white;
-    color: black;
+.footer {
+    height: 15vh;
+}
+
+.header {
+    height: 20vh;
 }
