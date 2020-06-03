@@ -77,6 +77,8 @@ const responsabilities = [
     ],
 ]
 
+const ENTER_KEY = 13;
+
 /**
  * Adds a random greeting to the page.
  */
@@ -166,6 +168,29 @@ function addListItem(text, nodeParent) {
     item.style.fontSize = '18px';
     item.innerText = text;
     nodeParent.appendChild(item);
+}
+
+function onKeyDown(event) {
+    if (event.keyCode !== ENTER_KEY) {
+        return;
+    }
+    event.preventDefault();
+    var text = document.getElementById('askme-input');
+    createMessage(text.value);
+    text.value = '';
+}
+
+function createMessage(message) {
+    var question = document.createElement('div');
+    question.classList.add('card-panel');
+    question.style.width = '88%';
+    question.style.marginLeft = '10%';
+    question.style.marginRight = '2%';
+    question.style.padding = '5%';
+    question.style.backgroundColor = 'lightblue';
+    question.innerText = message;
+    var questionsSection = document.getElementById('questions-answers');
+    questionsSection.prepend(question);
 }
 
 
