@@ -176,7 +176,9 @@ function onKeyDown(event) {
     }
     event.preventDefault();
     var text = document.getElementById('askme-input');
+    var form = document.getElementById('my-form');
     createMessage(text.value);
+    form.submit();
     text.value = '';
 }
 
