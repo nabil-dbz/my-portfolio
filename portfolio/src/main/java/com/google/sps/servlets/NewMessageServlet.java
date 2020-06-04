@@ -40,6 +40,7 @@ public class NewMessageServlet extends HttpServlet {
 
     Entity messageEntity = new Entity("Question");
     messageEntity.setProperty("question", message);
+    messageEntity.setProperty("answer", "");
     messageEntity.setProperty("timestamp", timestamp);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();

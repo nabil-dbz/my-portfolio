@@ -34,8 +34,9 @@ public class ListQuestionsServlet extends HttpServlet{
         for (Entity entity: results.asIterable()) {
             long id = entity.getKey().getId();
             String message = (String)entity.getProperty("question");
+            String answer = (String)entity.getProperty("answer");
             long timestamp = (long)entity.getProperty("timestamp");
-            Question question = new Question(id, message, timestamp);
+            Question question = new Question(id, message, answer, timestamp);
             questions.add(question);
         }
 
