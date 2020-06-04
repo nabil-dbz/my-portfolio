@@ -109,6 +109,8 @@ document.addEventListener('DOMContentLoaded', function() {
     M.Collapsible.init(element, {
         accordian: false,
     });
+
+    loadQuestions();
 });
 
 // Update the experience description
@@ -192,7 +194,13 @@ function createMessage(message) {
     question.style.backgroundColor = 'lightblue';
     question.innerText = message;
     var questionsSection = document.getElementById('questions-answers');
-    questionsSection.prepend(question);
+    questionsSection.appendChild(question);
 }
 
-
+function loadQuestions() {
+    fetch('/list-questions').then(response => response.json()).then((questions) => {
+        questions.forEach((question) => {
+            createMessage(question.message);
+        });
+    });
+}
