@@ -177,36 +177,23 @@ function onKeyDown(event) {
         return;
     }
     event.preventDefault();
-    var text = document.getElementById('askme-input');
-    var form = document.getElementById('my-form');
+    const text = document.getElementById('askme-input');
+    const form = document.getElementById('my-form');
     createMessage(text.value);
     form.submit();
     text.value = '';
 }
 
-function createMessage(message) {
-    var question = document.createElement('div');
+function createMessage(message, isQuestion) {
+    const question = document.createElement('div');
     question.classList.add('card-panel');
     question.style.width = '88%';
-    question.style.marginLeft = '10%';
-    question.style.marginRight = '2%';
+    question.style.marginLeft = isQuestion ? '10%' : '2%';
+    question.style.marginRight = isQuestion ? '2%' : '10%';
     question.style.padding = '5%';
-    question.style.backgroundColor = 'lightblue';
+    question.style.backgroundColor = isQuestion ? 'lightblue' : 'lightgreen';
     question.innerText = message;
-    var questionsSection = document.getElementById('questions-answers');
-    questionsSection.appendChild(question);
-}
-
-function createAnswer(answer) {
-    var question = document.createElement('div');
-    question.classList.add('card-panel');
-    question.style.width = '88%';
-    question.style.marginRight = '10%';
-    question.style.marginLeft = '2%';
-    question.style.padding = '5%';
-    question.style.backgroundColor = 'lightred';
-    question.innerText = answer;
-    var questionsSection = document.getElementById('questions-answers');
+    const questionsSection = document.getElementById('questions-answers');
     questionsSection.appendChild(question);
 }
 
@@ -214,10 +201,10 @@ function loadQuestions() {
     fetch('/list-questions').then(response => response.json()).then((questions) => {
         questions.forEach((question) => {
             if (question.message !== '') {
-                createMessage(question.message);
+                createMessage(question.message, true);
             }
             if (question.answer !== '') {
-                createAnswer(question.answer);
+                createMessage(question.answer, false);
             }
         });
     });
