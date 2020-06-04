@@ -197,10 +197,28 @@ function createMessage(message) {
     questionsSection.appendChild(question);
 }
 
+function createAnswer(answer) {
+    var question = document.createElement('div');
+    question.classList.add('card-panel');
+    question.style.width = '88%';
+    question.style.marginRight = '10%';
+    question.style.marginLeft = '2%';
+    question.style.padding = '5%';
+    question.style.backgroundColor = 'lightred';
+    question.innerText = answer;
+    var questionsSection = document.getElementById('questions-answers');
+    questionsSection.appendChild(question);
+}
+
 function loadQuestions() {
     fetch('/list-questions').then(response => response.json()).then((questions) => {
         questions.forEach((question) => {
-            createMessage(question.message);
+            if (question.message !== '') {
+                createMessage(question.message);
+            }
+            if (question.answer !== '') {
+                createAnswer(question.answer);
+            }
         });
     });
 }
