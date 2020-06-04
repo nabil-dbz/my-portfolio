@@ -94,7 +94,7 @@ function addRandomHobby() {
 
 // Intializing materialize components
 document.addEventListener('DOMContentLoaded', function() {
-    var element = document.querySelector('.carousel');
+    let element = document.querySelector('.carousel');
     M.Carousel.init(element, {
         dist: -100,
         padding: 0,
@@ -112,8 +112,8 @@ document.addEventListener('DOMContentLoaded', function() {
 // Update the experience description
 function updateExperienceDescription(company) {
     // Get the text and title elements by id
-    var description = document.getElementById('experience-description');
-    var title = document.getElementById('experience-title');
+    const description = document.getElementById('experience-description');
+    const title = document.getElementById('experience-title');
     switch (company) {
         case 'Google':
             title.innerText = 'Google STEP Intern 2020';
@@ -150,18 +150,18 @@ function updateExperienceDescription(company) {
 
 function setExperienceDescription(description, about, responsabilitiesTable) {
     description.innerHTML = '';
-    var company = document.createElement('p');
+    const company = document.createElement('p');
     company.innerText = about;
     description.appendChild(company);
-    var responsibilitiesList = document.createElement('ul');
-    for (var i = 0; i < responsabilitiesTable.length; i++) {
+    let responsibilitiesList = document.createElement('ul');
+    for (let i = 0; i < responsabilitiesTable.length; i++) {
         addListItem(responsabilitiesTable[i], responsibilitiesList);
     }
     description.appendChild(responsibilitiesList);
 }
 
 function addListItem(text, nodeParent) {
-    var item = document.createElement('li');
+    const item = document.createElement('li');
     item.classList.add('left-align');
     item.style.fontSize = '18px';
     item.innerText = text;
