@@ -36,15 +36,17 @@ public class NewMessageServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String message = request.getParameter("question");
-    long timestamp = System.currentTimeMillis();
-
-    Entity messageEntity = new Entity("Question");
-    messageEntity.setProperty("question", message);
-    messageEntity.setProperty("answer", "");
-    messageEntity.setProperty("timestamp", timestamp);
-
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(messageEntity);
+    if (!message.equals("")) {
+      long timestamp = System.currentTimeMillis();
+  
+      Entity messageEntity = new Entity("Question");
+      messageEntity.setProperty("question", message);
+      messageEntity.setProperty("answer", "");
+      messageEntity.setProperty("timestamp", timestamp);
+  
+      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+      datastore.put(messageEntity);
+    }
 
     response.sendRedirect("/index.html");
   }
