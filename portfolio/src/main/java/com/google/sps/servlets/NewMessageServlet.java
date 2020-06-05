@@ -28,9 +28,6 @@ import com.google.appengine.api.datastore.Entity;
 @WebServlet("/new-message")
 public class NewMessageServlet extends HttpServlet {
 
-  /**
-   *
-   */
   private static final long serialVersionUID = 1L;
 
   @Override
@@ -51,3 +48,4 @@ public class NewMessageServlet extends HttpServlet {
     response.sendRedirect("/index.html");
   }
 }
+

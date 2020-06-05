@@ -19,9 +19,7 @@ import com.google.appengine.repackaged.com.google.gson.Gson;
 
 @WebServlet("/list-questions")
 public class ListQuestionsServlet extends HttpServlet{
-    /**
-     *
-     */
+
     private static final long serialVersionUID = 1L;
 
     @Override
