@@ -24,12 +24,20 @@ public class ListQuestionsServlet extends HttpServlet{
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String limit = request.getQueryString();
         Query query = new Query("Question").addSort("timestamp", SortDirection.DESCENDING);
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
 
         List<Question> questions = new ArrayList<>();
+        boolean thereIsMore = false;
+        int counter = 0;
         for (Entity entity: results.asIterable()) {
+            if (String.valueOf(counter).equals(limit)) {
+                thereIsMore = true;
+                break;
+            }
+            counter++;
             long id = entity.getKey().getId();
             String message = (String)entity.getProperty("question");
             String answer = (String)entity.getProperty("answer");
@@ -38,8 +46,14 @@ public class ListQuestionsServlet extends HttpServlet{
             questions.add(question);
         }
 
-        Gson gson = new Gson();
         response.setContentType("application/json;");
-        response.getWriter().println(gson.toJson(questions));
+        String json = "{";
+        json += "\"thereIsMore\": ";
+        json += thereIsMore;
+        json += ", ";
+        json += "\"questions\": ";
+        json += (new Gson()).toJson(questions);
+        json += "}";
+        response.getWriter().println(json);
     }
 }
