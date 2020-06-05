@@ -198,8 +198,8 @@ function createMessage(message, isQuestion) {
 }
 
 function loadQuestions() {
-    fetch('/list-questions').then(response => response.json()).then((questions) => {
-        questions.forEach((question) => {
+    fetch('/list-questions?2').then(response => response.json()).then((data) => {
+        data.questions.forEach((question) => {
             if (question.message !== '') {
                 createMessage(question.message, true);
             }
@@ -207,5 +207,17 @@ function loadQuestions() {
                 createMessage(question.answer, false);
             }
         });
+        if (data.thereIsMore) {
+            instanciateLoadMoreButton();
+        }
     });
+}
+
+function instanciateLoadMoreButton() {
+    const buttonContainer = document.getElementById('load-more-container');
+    const button = document.createElement('a');
+    button.classList.add('btn');
+    button.style.backgroundColor = 'gray';
+    button.innerHTML = '<i class="material-icons">expand_more</i>'; 
+    buttonContainer.appendChild(button);
 }
