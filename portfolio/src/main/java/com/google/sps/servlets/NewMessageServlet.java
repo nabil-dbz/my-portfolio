@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.repackaged.com.google.gson.Gson;
 
 /** Servlet that returns some example content. **/
 @WebServlet("/new-message")
@@ -43,9 +44,10 @@ public class NewMessageServlet extends HttpServlet {
   
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
       datastore.put(messageEntity);
+      response.getWriter().println((new Gson()).toJson(messageEntity));
+      return;
     }
-
-    response.sendRedirect("/index.html");
+    response.getWriter().println((new Gson()).toJson(message));
   }
 }
 
