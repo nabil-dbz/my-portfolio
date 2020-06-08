@@ -179,9 +179,14 @@ function onKeyDown(event) {
     }
     event.preventDefault();
     const text = document.getElementById('askme-input');
-    const form = document.getElementById('my-form');
-    createMessage(text.value);
-    form.submit();
+    const params = new URLSearchParams();
+    params.append('question', text.value);
+    fetch('new-message', {method: 'POST', body: params})
+    .then(response => response.json())
+    .then(data => {
+        nQuestionsToLoad -= 2;
+        loadQuestions();
+    });
     text.value = '';
 }
 
@@ -200,25 +205,18 @@ function createMessage(id, message, isQuestion) {
     questionsSection.appendChild(question);
 }
 
-function deleteMessage(id) {
-    var question = document.getElementById(id + 'q');
-    if (question !== null) {
-        question.remove();
-    }
-    var answer = document.getElementById(id + 'a');
-    if (answer !== null) {
-        answer.remove();
-    }
-}
-
 function onMessageClicked(event) {
     if (event.button == RIGHT_CLICK) {
         event.preventDefault();
         questionId = event.target.id.substr(0, event.target.id.length - 1)
         const params = new URLSearchParams();
         params.append('id', questionId);
-        fetch('delete-message', {method: 'POST', body: params});
-        deleteMessage(questionId);
+        fetch('delete-message', {method: 'POST', body: params})
+        .then(response => response.json())
+        .then(() => {
+            nQuestionsToLoad -= 2;
+            loadQuestions();
+        });
     }
 }
 
