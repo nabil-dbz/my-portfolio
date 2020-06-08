@@ -10,36 +10,32 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 /** Servlet that returns some example content. **/
 @WebServlet("/add-answer")
 public class AddAnswerServlet extends HttpServlet {
-    /**
-   *
-   */
+
   private static final long serialVersionUID = 1L;
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String answer = request.getParameter("answer");
-    String questionId = request.getParameter("question-id");
-    if (!answer.equals("")) { 
-        Query query = new Query("Question");
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        PreparedQuery results = datastore.prepare(query);
-
-        for (Entity entity: results.asIterable()) {
-            long id = entity.getKey().getId();
-            if (String.valueOf(id).equals(questionId)) {
-                entity.setProperty("answer", answer);
-                datastore.put(entity);
-                return;
-            }
-        }
+    if (!answer.equals("")) {
+      long id = Long.parseLong(request.getParameter("question-id"));
+      Key questionEntityKey = KeyFactory.createKey("Question", id);
+      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+      Entity entity;
+      try {
+        entity = datastore.get(questionEntityKey);
+      } catch (EntityNotFoundException e) {
+        return;
+      }
+      entity.setProperty("answer", answer);
+      datastore.put(entity);
     }
-
     response.sendRedirect("/answer.html");
   }
 }
