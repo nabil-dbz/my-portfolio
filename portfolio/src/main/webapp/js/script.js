@@ -78,7 +78,8 @@ const responsabilities = [
 ]
 
 const ENTER_KEY = 13;
-
+const RIGHT_CLICK = 2;
+let nQuestionsToLoad = 2;
 /**
  * Adds a random greeting to the page.
  */
@@ -184,27 +185,57 @@ function onKeyDown(event) {
     text.value = '';
 }
 
-function createMessage(message, isQuestion) {
+function createMessage(id, message, isQuestion) {
     const question = document.createElement('div');
     question.classList.add('card-panel');
+    question.id = isQuestion ? id + 'q' : id + 'a';
     question.style.width = '88%';
     question.style.marginLeft = isQuestion ? '10%' : '2%';
     question.style.marginRight = isQuestion ? '2%' : '10%';
     question.style.padding = '5%';
     question.style.backgroundColor = isQuestion ? 'lightblue' : 'lightgreen';
     question.innerText = message;
+    question.addEventListener('mousedown', onMessageClicked);
     const questionsSection = document.getElementById('questions-answers');
     questionsSection.appendChild(question);
 }
 
+function deleteMessage(id) {
+    var question = document.getElementById(id + 'q');
+    if (question !== null) {
+        question.remove();
+    }
+    var answer = document.getElementById(id + 'a');
+    if (answer !== null) {
+        answer.remove();
+    }
+}
+
+function onMessageClicked(event) {
+    if (event.button == RIGHT_CLICK) {
+        event.preventDefault();
+        questionId = event.target.id.substr(0, event.target.id.length - 1)
+        const params = new URLSearchParams();
+        params.append('id', questionId);
+        fetch('delete-message', {method: 'POST', body: params});
+        deleteMessage(questionId);
+    }
+}
+
 function loadQuestions() {
-    fetch('/list-questions?2').then(response => response.json()).then((data) => {
+    const questionsSection = document.getElementById('questions-answers');
+    const loadMoreButton = document.getElementById('load-more-container');
+    questionsSection.innerHTML = '';
+    loadMoreButton.innerHTML = '';
+    const url = 'list-questions?' + nQuestionsToLoad;
+    nQuestionsToLoad += 2;
+    fetch(url).then(response => response.json()).then((data) => {
         data.questions.forEach((question) => {
             if (question.message !== '') {
-                createMessage(question.message, true);
+                createMessage(question.id, question.message, true);
             }
             if (question.answer !== '') {
-                createMessage(question.answer, false);
+                createMessage(question.id, question.answer, false);
             }
         });
         if (data.thereIsMore) {
@@ -218,6 +249,7 @@ function instanciateLoadMoreButton() {
     const button = document.createElement('a');
     button.classList.add('btn');
     button.style.backgroundColor = 'gray';
-    button.innerHTML = '<i class="material-icons">expand_more</i>'; 
+    button.innerHTML = '<i class="material-icons">expand_more</i>';
+    button.onclick = loadQuestions;
     buttonContainer.appendChild(button);
 }
