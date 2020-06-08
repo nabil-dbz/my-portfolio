@@ -79,7 +79,7 @@ const responsabilities = [
 
 const ENTER_KEY = 13;
 const RIGHT_CLICK = 2;
-let nQuestionsToLoad = 2;
+let questionLoadCount = 2;
 /**
  * Adds a random greeting to the page.
  */
@@ -184,7 +184,7 @@ function onKeyDown(event) {
     fetch('new-message', {method: 'POST', body: params})
     .then(response => response.json())
     .then(data => {
-        nQuestionsToLoad -= 2;
+        questionLoadCount -= 2;
         loadQuestions();
     });
     text.value = '';
@@ -214,7 +214,7 @@ function onMessageClicked(event) {
         fetch('delete-message', {method: 'POST', body: params})
         .then(response => response.json())
         .then(() => {
-            nQuestionsToLoad -= 2;
+            questionLoadCount -= 2;
             loadQuestions();
         });
     }
@@ -225,8 +225,8 @@ function loadQuestions() {
     const loadMoreButton = document.getElementById('load-more-container');
     questionsSection.innerHTML = '';
     loadMoreButton.innerHTML = '';
-    const url = 'list-questions?' + nQuestionsToLoad;
-    nQuestionsToLoad += 2;
+    const url = 'list-questions?' + questionLoadCount;
+    questionLoadCount += 2;
     fetch(url).then(response => response.json()).then((data) => {
         data.questions.forEach((question) => {
             if (question.message !== '') {
