@@ -77,6 +77,8 @@ const responsabilities = [
     ],
 ]
 
+const ENTER_KEY = 13;
+
 /**
  * Adds a random greeting to the page.
  */
@@ -107,6 +109,8 @@ document.addEventListener('DOMContentLoaded', function() {
     M.Collapsible.init(element, {
         accordian: false,
     });
+
+    loadQuestions();
 });
 
 // Update the experience description
@@ -168,4 +172,40 @@ function addListItem(text, nodeParent) {
     nodeParent.appendChild(item);
 }
 
+function onKeyDown(event) {
+    if (event.keyCode !== ENTER_KEY) {
+        return;
+    }
+    event.preventDefault();
+    const text = document.getElementById('askme-input');
+    const form = document.getElementById('my-form');
+    createMessage(text.value);
+    form.submit();
+    text.value = '';
+}
 
+function createMessage(message, isQuestion) {
+    const question = document.createElement('div');
+    question.classList.add('card-panel');
+    question.style.width = '88%';
+    question.style.marginLeft = isQuestion ? '10%' : '2%';
+    question.style.marginRight = isQuestion ? '2%' : '10%';
+    question.style.padding = '5%';
+    question.style.backgroundColor = isQuestion ? 'lightblue' : 'lightgreen';
+    question.innerText = message;
+    const questionsSection = document.getElementById('questions-answers');
+    questionsSection.appendChild(question);
+}
+
+function loadQuestions() {
+    fetch('/list-questions').then(response => response.json()).then((questions) => {
+        questions.forEach((question) => {
+            if (question.message !== '') {
+                createMessage(question.message, true);
+            }
+            if (question.answer !== '') {
+                createMessage(question.answer, false);
+            }
+        });
+    });
+}

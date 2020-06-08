@@ -125,3 +125,26 @@ body {
 .row.contacts {
     margin: 0;
 }
+
+#chat-room {
+    height: 90vh;
+    width: 90%;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    opacity: 0.8;
+}
+
+.chat-room-title {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1vw;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    opacity: 0.8;
+    border-bottom: 1px solid gray;
+    margin: 0;
+}
+
+.col .row {
+    margin: 0;
+}
