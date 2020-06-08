@@ -24,7 +24,12 @@ public class ListQuestionsServlet extends HttpServlet{
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String limit = request.getQueryString();
+        int limit;
+        try {
+            limit = Integer.parseInt(request.getQueryString());
+        } catch (NumberFormatException e) {
+            limit = 2;
+        }
         Query query = new Query("Question").addSort("timestamp", SortDirection.DESCENDING);
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
@@ -33,7 +38,7 @@ public class ListQuestionsServlet extends HttpServlet{
         boolean thereIsMore = false;
         int counter = 0;
         for (Entity entity: results.asIterable()) {
-            if (String.valueOf(counter).equals(limit)) {
+            if (counter == limit) {
                 thereIsMore = true;
                 break;
             }
