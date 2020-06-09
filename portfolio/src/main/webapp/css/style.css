@@ -149,3 +149,8 @@ body {
 .col .row {
     margin: 0;
 }
+
+#file-download-btn {
+    padding: 0;
+    background-color: transparent;
+}

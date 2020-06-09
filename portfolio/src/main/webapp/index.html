@@ -118,7 +118,23 @@
                 <div id="chat-room" class="card-panel">
                     <div class="rwo"><h5 class="chat-room-title center-align">Questions & Answers</h5></div>
                     <form method="POST" action="new-message" id="my-form">
-                        <textarea id="askme-input" class="row" type="text" name="question" placeholder="Ask Me Anything ..." style="height: 10%" onkeydown="onKeyDown(event)"></textarea>
+                        <div class="row">
+                            <textarea id="askme-input" class="col s11" type="text" name="question" placeholder="Ask Me Anything ..." style="height: 10%" onkeydown="onKeyDown(event)"></textarea>
+                            <a class="col s1 btn modal-trigger" data-target="file-download-modal" id="file-download-btn"><i class="material-icons" style="color: black; background-color: transparent;">file_download</i></a>
+                            <div id="file-download-modal" class="modal">
+                                <div class="modal-content">
+                                  <h4>Download a file</h4>
+                                  <form>
+                                      <p>Choose a file and give it a proper name!</p>
+                                      <input type="file" name="file"/>
+                                  </form>
+                                </div>
+                                <div class="modal-footer">
+                                  <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                                  <a href="#!" class="modal-close waves-effect waves-green btn-flat">Confirm</a>
+                                </div>
+                              </div>
+                        </div>
                     </form>
                     <div id="questions-answers" class="row"></div>
                     <div id="load-more-container" class="center-align row"></div>
