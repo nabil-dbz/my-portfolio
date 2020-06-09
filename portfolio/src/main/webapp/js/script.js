@@ -111,6 +111,11 @@ document.addEventListener('DOMContentLoaded', function() {
         accordian: false,
     });
 
+    element = document.querySelector('.modal');
+    M.Modal.init(element, {
+        opacity: 1,
+    });
+
     loadQuestions();
 });
 
