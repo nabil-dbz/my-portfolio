@@ -60,7 +60,6 @@ public class NewMessageServlet extends HttpServlet {
   
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
       datastore.put(messageEntity);
-      // response.getWriter().println((new Gson()).toJson(messageEntity));
       response.sendRedirect("/index.html");
       return;
     }
@@ -106,4 +105,3 @@ public class NewMessageServlet extends HttpServlet {
     }
   }
 }
-
