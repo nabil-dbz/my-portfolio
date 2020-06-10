@@ -185,7 +185,6 @@ function onKeyDown(event) {
     event.preventDefault();
     const form = document.getElementById('my-form');
     form.submit();
-    text.value = '';
 }
 
 function createMessage(id, message, isQuestion, imageUrl) {
@@ -223,7 +222,7 @@ function createImage(imageUrl) {
 function onMessageClicked(event) {
     if (event.button == RIGHT_CLICK) {
         event.preventDefault();
-        questionId = event.target.id.substr(0, event.target.id.length - 1)
+        questionId = event.currentTarget.id.substr(0, event.currentTarget.id.length - 1);
         const params = new URLSearchParams();
         params.append('id', questionId);
         fetch('delete-message', {method: 'POST', body: params})
