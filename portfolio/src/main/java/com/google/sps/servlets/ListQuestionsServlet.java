@@ -47,7 +47,8 @@ public class ListQuestionsServlet extends HttpServlet{
             String message = (String)entity.getProperty("question");
             String answer = (String)entity.getProperty("answer");
             long timestamp = (long)entity.getProperty("timestamp");
-            Question question = new Question(id, message, answer, timestamp);
+            String image = (String)entity.getProperty("image");
+            Question question = new Question(id, message, answer, timestamp, image);
             questions.add(question);
         }
 
