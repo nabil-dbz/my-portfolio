@@ -256,3 +256,32 @@ function instanciateLoadMoreButton() {
     button.onclick = loadQuestions;
     buttonContainer.appendChild(button);
 }
+
+function fetchBlobstoreUrl() {
+    fetch('blobstore-upload-url')
+    .then((response) => {
+        return response.text();
+    })
+    .then((fileUrl) => {
+        const form = document.getElementById('choose-file-form');
+        form.action = fileUrl;
+    });
+}
+
+function onConfirm() {
+    const uploadedFileField = document.getElementById('uploaded-file');
+    const form = document.getElementById('choose-file-form');
+    uploadedFileField.innerHTML = '';
+    if (form.lastElementChild.value === '') {
+        return;
+    }
+    const textElement = document.createElement('p');
+    textElement.style.fontSize = '0.8vw';
+    textElement.style.fontFamily = 'Verdana, Geneva, Tahoma, sans-serif';
+    textElement.style.padding = '3%';
+    textElement.style.margin = '0';
+    textElement.style.borderBottom = '1px solid gray';
+    textElement.style.backgroundColor = 'springgreen';
+    textElement.innerText = 'Uploaded File is: ' + form.lastElementChild.value;
+    uploadedFileField.appendChild(textElement);
+}
