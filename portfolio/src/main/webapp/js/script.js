@@ -183,19 +183,12 @@ function onKeyDown(event) {
         return;
     }
     event.preventDefault();
-    const text = document.getElementById('askme-input');
-    const params = new URLSearchParams();
-    params.append('question', text.value);
-    fetch('new-message', {method: 'POST', body: params})
-    .then(response => response.json())
-    .then(data => {
-        questionLoadCount -= 2;
-        loadQuestions();
-    });
+    const form = document.getElementById('my-form');
+    form.submit();
     text.value = '';
 }
 
-function createMessage(id, message, isQuestion) {
+function createMessage(id, message, isQuestion, imageUrl) {
     const question = document.createElement('div');
     question.classList.add('card-panel');
     question.id = isQuestion ? id + 'q' : id + 'a';
@@ -204,10 +197,27 @@ function createMessage(id, message, isQuestion) {
     question.style.marginRight = isQuestion ? '2%' : '10%';
     question.style.padding = '5%';
     question.style.backgroundColor = isQuestion ? 'lightblue' : 'lightgreen';
-    question.innerText = message;
+    question.appendChild(createText(message));
     question.addEventListener('mousedown', onMessageClicked);
+    if (imageUrl !== '') {
+        question.appendChild(createImage(imageUrl));
+    }
     const questionsSection = document.getElementById('questions-answers');
     questionsSection.appendChild(question);
+}
+
+function createText(text) {
+    const textElement = document.createElement('p');
+    textElement.innerText = text;
+    textElement.style.margin = '0';
+    return textElement;
+}
+
+function createImage(imageUrl) {
+    const image = document.createElement('img');
+    image.style.width = '90%';
+    image.src = imageUrl;
+    return image;
 }
 
 function onMessageClicked(event) {
@@ -235,7 +245,7 @@ function loadQuestions() {
     fetch(url).then(response => response.json()).then((data) => {
         data.questions.forEach((question) => {
             if (question.message !== '') {
-                createMessage(question.id, question.message, true);
+                createMessage(question.id, question.message, true, question.image);
             }
             if (question.answer !== '') {
                 createMessage(question.id, question.answer, false);
@@ -244,6 +254,7 @@ function loadQuestions() {
         if (data.thereIsMore) {
             instanciateLoadMoreButton();
         }
+        fetchBlobstoreUrl();
     });
 }
 
@@ -263,25 +274,12 @@ function fetchBlobstoreUrl() {
         return response.text();
     })
     .then((fileUrl) => {
-        const form = document.getElementById('choose-file-form');
+        const form = document.getElementById('my-form');
         form.action = fileUrl;
     });
 }
 
-function onConfirm() {
-    const uploadedFileField = document.getElementById('uploaded-file');
-    const form = document.getElementById('choose-file-form');
-    uploadedFileField.innerHTML = '';
-    if (form.lastElementChild.value === '') {
-        return;
-    }
-    const textElement = document.createElement('p');
-    textElement.style.fontSize = '0.8vw';
-    textElement.style.fontFamily = 'Verdana, Geneva, Tahoma, sans-serif';
-    textElement.style.padding = '3%';
-    textElement.style.margin = '0';
-    textElement.style.borderBottom = '1px solid gray';
-    textElement.style.backgroundColor = 'springgreen';
-    textElement.innerText = 'Uploaded File is: ' + form.lastElementChild.value;
-    uploadedFileField.appendChild(textElement);
+function onUploadFileClick() {
+    const chooseFileInput = document.getElementById('choose-file');
+    chooseFileInput.innerHTML = '<input type="file" name="image">';
 }
