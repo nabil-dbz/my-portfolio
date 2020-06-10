@@ -78,7 +78,8 @@ const responsabilities = [
 ]
 
 const ENTER_KEY = 13;
-
+const RIGHT_CLICK = 2;
+let questionLoadCount = 2;
 /**
  * Adds a random greeting to the page.
  */
@@ -178,34 +179,75 @@ function onKeyDown(event) {
     }
     event.preventDefault();
     const text = document.getElementById('askme-input');
-    const form = document.getElementById('my-form');
-    createMessage(text.value);
-    form.submit();
+    const params = new URLSearchParams();
+    params.append('question', text.value);
+    fetch('new-message', {method: 'POST', body: params})
+    .then(response => response.json())
+    .then(data => {
+        questionLoadCount -= 2;
+        loadQuestions();
+    });
     text.value = '';
 }
 
-function createMessage(message, isQuestion) {
+function createMessage(id, message, isQuestion) {
     const question = document.createElement('div');
     question.classList.add('card-panel');
+    question.id = isQuestion ? id + 'q' : id + 'a';
     question.style.width = '88%';
     question.style.marginLeft = isQuestion ? '10%' : '2%';
     question.style.marginRight = isQuestion ? '2%' : '10%';
     question.style.padding = '5%';
     question.style.backgroundColor = isQuestion ? 'lightblue' : 'lightgreen';
     question.innerText = message;
+    question.addEventListener('mousedown', onMessageClicked);
     const questionsSection = document.getElementById('questions-answers');
     questionsSection.appendChild(question);
 }
 
+function onMessageClicked(event) {
+    if (event.button == RIGHT_CLICK) {
+        event.preventDefault();
+        questionId = event.target.id.substr(0, event.target.id.length - 1)
+        const params = new URLSearchParams();
+        params.append('id', questionId);
+        fetch('delete-message', {method: 'POST', body: params})
+        .then(response => response.json())
+        .then(() => {
+            questionLoadCount -= 2;
+            loadQuestions();
+        });
+    }
+}
+
 function loadQuestions() {
-    fetch('/list-questions').then(response => response.json()).then((questions) => {
-        questions.forEach((question) => {
+    const questionsSection = document.getElementById('questions-answers');
+    const loadMoreButton = document.getElementById('load-more-container');
+    questionsSection.innerHTML = '';
+    loadMoreButton.innerHTML = '';
+    const url = 'list-questions?' + questionLoadCount;
+    questionLoadCount += 2;
+    fetch(url).then(response => response.json()).then((data) => {
+        data.questions.forEach((question) => {
             if (question.message !== '') {
-                createMessage(question.message, true);
+                createMessage(question.id, question.message, true);
             }
             if (question.answer !== '') {
-                createMessage(question.answer, false);
+                createMessage(question.id, question.answer, false);
             }
         });
+        if (data.thereIsMore) {
+            instanciateLoadMoreButton();
+        }
     });
+}
+
+function instanciateLoadMoreButton() {
+    const buttonContainer = document.getElementById('load-more-container');
+    const button = document.createElement('a');
+    button.classList.add('btn');
+    button.style.backgroundColor = 'gray';
+    button.innerHTML = '<i class="material-icons">expand_more</i>';
+    button.onclick = loadQuestions;
+    buttonContainer.appendChild(button);
 }
