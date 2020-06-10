@@ -186,7 +186,7 @@ function onKeyDown(event) {
     const form = document.getElementById('my-form');
     form.submit();
 }
-
+// This function creates a message
 function createMessage(id, message, isQuestion, imageUrl) {
     const question = document.createElement('div');
     question.classList.add('card-panel');
@@ -204,21 +204,21 @@ function createMessage(id, message, isQuestion, imageUrl) {
     const questionsSection = document.getElementById('questions-answers');
     questionsSection.appendChild(question);
 }
-
+// This function returns a text element with the innerText text
 function createText(text) {
     const textElement = document.createElement('p');
     textElement.innerText = text;
     textElement.style.margin = '0';
     return textElement;
 }
-
+// This function returns an image node to be added to the DOM
 function createImage(imageUrl) {
     const image = document.createElement('img');
     image.style.width = '90%';
     image.src = imageUrl;
     return image;
 }
-
+// This function deletes the clicked message 
 function onMessageClicked(event) {
     if (event.button == RIGHT_CLICK) {
         event.preventDefault();
@@ -233,7 +233,7 @@ function onMessageClicked(event) {
         });
     }
 }
-
+// This function retrieves the questions from the data store and displays them
 function loadQuestions() {
     const questionsSection = document.getElementById('questions-answers');
     const loadMoreButton = document.getElementById('load-more-container');
@@ -256,7 +256,7 @@ function loadQuestions() {
         fetchBlobstoreUrl();
     });
 }
-
+// This function instanciates the load more button
 function instanciateLoadMoreButton() {
     const buttonContainer = document.getElementById('load-more-container');
     const button = document.createElement('a');
@@ -266,7 +266,7 @@ function instanciateLoadMoreButton() {
     button.onclick = loadQuestions;
     buttonContainer.appendChild(button);
 }
-
+// This function triggers the UploadUrl servlet
 function fetchBlobstoreUrl() {
     fetch('blobstore-upload-url')
     .then((response) => {
@@ -277,8 +277,8 @@ function fetchBlobstoreUrl() {
         form.action = fileUrl;
     });
 }
-
+// This function gets called when the upload file button in clicked
 function onUploadFileClick() {
     const chooseFileInput = document.getElementById('choose-file');
-    chooseFileInput.innerHTML = '<input type="file" name="image">';
+    chooseFileInput.innerHTML = '<input type="file" name="image" accept="image/*">';
 }
