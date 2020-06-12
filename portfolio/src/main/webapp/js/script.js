@@ -111,6 +111,11 @@ document.addEventListener('DOMContentLoaded', function() {
         accordian: false,
     });
 
+    element = document.querySelector('.modal');
+    M.Modal.init(element, {
+        opacity: 1,
+    });
+
     loadQuestions();
 });
 
@@ -178,19 +183,11 @@ function onKeyDown(event) {
         return;
     }
     event.preventDefault();
-    const text = document.getElementById('askme-input');
-    const params = new URLSearchParams();
-    params.append('question', text.value);
-    fetch('new-message', {method: 'POST', body: params})
-    .then(response => response.json())
-    .then(data => {
-        questionLoadCount -= 2;
-        loadQuestions();
-    });
-    text.value = '';
+    const form = document.getElementById('my-form');
+    form.submit();
 }
-
-function createMessage(id, message, isQuestion) {
+// This function creates a message
+function createMessage(id, message, isQuestion, imageUrl) {
     const question = document.createElement('div');
     question.classList.add('card-panel');
     question.id = isQuestion ? id + 'q' : id + 'a';
@@ -199,16 +196,33 @@ function createMessage(id, message, isQuestion) {
     question.style.marginRight = isQuestion ? '2%' : '10%';
     question.style.padding = '5%';
     question.style.backgroundColor = isQuestion ? 'lightblue' : 'lightgreen';
-    question.innerText = message;
+    question.appendChild(createText(message));
     question.addEventListener('mousedown', onMessageClicked);
+    if (imageUrl !== '') {
+        question.appendChild(createImage(imageUrl));
+    }
     const questionsSection = document.getElementById('questions-answers');
     questionsSection.appendChild(question);
 }
-
+// This function returns a text element with the innerText text
+function createText(text) {
+    const textElement = document.createElement('p');
+    textElement.innerText = text;
+    textElement.style.margin = '0';
+    return textElement;
+}
+// This function returns an image node to be added to the DOM
+function createImage(imageUrl) {
+    const image = document.createElement('img');
+    image.style.width = '90%';
+    image.src = imageUrl;
+    return image;
+}
+// This function deletes the clicked message 
 function onMessageClicked(event) {
     if (event.button == RIGHT_CLICK) {
         event.preventDefault();
-        questionId = event.target.id.substr(0, event.target.id.length - 1)
+        questionId = event.currentTarget.id.substr(0, event.currentTarget.id.length - 1);
         const params = new URLSearchParams();
         params.append('id', questionId);
         fetch('delete-message', {method: 'POST', body: params})
@@ -219,7 +233,7 @@ function onMessageClicked(event) {
         });
     }
 }
-
+// This function retrieves the questions from the data store and displays them
 function loadQuestions() {
     const questionsSection = document.getElementById('questions-answers');
     const loadMoreButton = document.getElementById('load-more-container');
@@ -230,7 +244,7 @@ function loadQuestions() {
     fetch(url).then(response => response.json()).then((data) => {
         data.questions.forEach((question) => {
             if (question.message !== '') {
-                createMessage(question.id, question.message, true);
+                createMessage(question.id, question.message, true, question.image);
             }
             if (question.answer !== '') {
                 createMessage(question.id, question.answer, false);
@@ -239,9 +253,10 @@ function loadQuestions() {
         if (data.thereIsMore) {
             instanciateLoadMoreButton();
         }
+        fetchBlobstoreUrl();
     });
 }
-
+// This function instanciates the load more button
 function instanciateLoadMoreButton() {
     const buttonContainer = document.getElementById('load-more-container');
     const button = document.createElement('a');
@@ -250,4 +265,20 @@ function instanciateLoadMoreButton() {
     button.innerHTML = '<i class="material-icons">expand_more</i>';
     button.onclick = loadQuestions;
     buttonContainer.appendChild(button);
+}
+// This function triggers the UploadUrl servlet
+function fetchBlobstoreUrl() {
+    fetch('blobstore-upload-url')
+    .then((response) => {
+        return response.text();
+    })
+    .then((fileUrl) => {
+        const form = document.getElementById('my-form');
+        form.action = fileUrl;
+    });
+}
+// This function gets called when the upload file button in clicked
+function onUploadFileClick() {
+    const chooseFileInput = document.getElementById('choose-file');
+    chooseFileInput.innerHTML = '<input type="file" name="image" accept="image/*">';
 }

@@ -117,8 +117,12 @@
             <div class="col s2">
                 <div id="chat-room" class="card-panel">
                     <div class="rwo"><h5 class="chat-room-title center-align">Questions & Answers</h5></div>
-                    <form method="POST" action="new-message" id="my-form">
-                        <textarea id="askme-input" class="row" type="text" name="question" placeholder="Ask Me Anything ..." style="height: 10%" onkeydown="onKeyDown(event)"></textarea>
+                    <form method="POST" id="my-form" enctype="multipart/form-data">
+                        <div class="row">
+                            <textarea id="askme-input" class="col s11" type="text" name="question" placeholder="Ask Me Anything ..." style="height: 10%" onkeydown="onKeyDown(event)"></textarea>
+                            <a class="col s1 btn" id="file-upload-btn" onclick="onUploadFileClick()"><i class="material-icons" style="color: black; background-color: transparent;">file_upload</i></a>
+                        </div>
+                        <div class="row" id="choose-file"></div>
                     </form>
                     <div id="questions-answers" class="row"></div>
                     <div id="load-more-container" class="center-align row"></div>
