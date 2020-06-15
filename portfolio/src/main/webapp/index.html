@@ -15,23 +15,24 @@
         <nav class="row" style="background-color: gray;">
             <div class="nav-wrapper">
                 <ul id="nav-mobile" class="right">
-                    <li><a href="/login" class="grey-text text-lighten-3 nav-icon" style="font-size: 1vw">Login</a></li>
+                    <li><a id="log-in-out" href="/login" class="grey-text text-lighten-3 nav-icon" style="font-size: 1.5vw"
+                         onclick="fetch('/login')">Login/Logout</a></li>
                 </ul>
                 <ul id="nav-mobile" class="lfet">       
-                    <li><a href="#about-me" class="grey-text text-lighten-3 nav-icon" style="font-size: 1vw">About Me</a></li>
-                    <li><a href="#experience" class="grey-text text-lighten-3 nav-icon" style="font-size: 1vw">Experience</a></li>
-                    <li><a href="#projetcs" class="grey-text text-lighten-3 nav-icon" style="font-size: 1vw">Projects</a></li>
-                    <li><a href="#activities" class="grey-text text-lighten-3 nav-icon" style="font-size: 1vw">Activities</a></li>
-                    <li><a href="#travels" class="grey-text text-lighten-3 nav-icon" style="font-size: 1vw">Travels</a></li>
-                    <li><a href="#hobbies" class="grey-text text-lighten-3 nav-icon" style="font-size: 1vw">Hobbies</a></li>
+                    <li><a href="#about-me" class="grey-text text-lighten-3 nav-icon" style="font-size: 1.5vw">About Me</a></li>
+                    <li><a href="#experience" class="grey-text text-lighten-3 nav-icon" style="font-size: 1.5vw">Experience</a></li>
+                    <li><a href="#projetcs" class="grey-text text-lighten-3 nav-icon" style="font-size: 1.5vw">Projects</a></li>
+                    <li><a href="#activities" class="grey-text text-lighten-3 nav-icon" style="font-size: 1.5vw">Activities</a></li>
+                    <li><a href="#travels" class="grey-text text-lighten-3 nav-icon" style="font-size: 1.5vw">Travels</a></li>
+                    <li><a href="#hobbies" class="grey-text text-lighten-3 nav-icon" style="font-size: 1.5vw">Hobbies</a></li>
                 </ul>
             </div>
         </nav>
         <div class="row my-wrapper valign-wrapper">
             <div class="col s2 center-align">
                 <div id="chat-room" class="card-panel center-align">
-                    <div class="rwo"><h5 class="grey-text text-lighten-3 center-align">Questions & Answers</h5></div>
-                    <div id="questions-answers" class="row"></div>
+                    <div class="rwo"><h5 class="grey-text text-lighten-3 center-align" style="font-size: 1.4vw;">Questions & Answers</h5></div>
+                    <div id="questions-answers" class="row left-align"></div>
                     <div id="load-more-container" class="center-align row"></div>
                 </div>
             </div>
@@ -131,7 +132,7 @@
                         <div class="text-white rgba-stylish-strong py-5 px-5 z-depth-4">
                             <!--Header-->
                             <div class="center-align">
-                                <h3 class="white-text mb-5 mt-4 font-weight-bold">Ask Me!</h3>
+                                <h3 class="white-text" style="font-size: 3 vw;">ASK ME!</h3>
                             </div>
                             <div class="md-form">
                                 <textarea id="askme-input" class="md-textarea form-control" name="question"
