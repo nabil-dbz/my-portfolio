@@ -195,7 +195,7 @@ function createMessage(id, message, isQuestion, imageUrl) {
     question.appendChild(createText(message));
     question.addEventListener('mousedown', onMessageClicked);
     question.ondblclick = onMessageDoubleClicked;
-    if (imageUrl !== '') {
+    if (imageUrl !== '' && isQuestion) {
         question.appendChild(createImage(imageUrl));
     }
     const questionsSection = document.getElementById('questions-answers');
@@ -230,9 +230,10 @@ function onMessageClicked(event) {
         });
     }
 }
+
 function onMessageDoubleClicked (event) {
     const questionId = event.currentTarget.id.substr(0, event.currentTarget.id.length - 1);
-    window.location.href = '/post-id?' + questionId;
+    window.location.href = '/add-answer?' + questionId;
 }
 // This function retrieves the questions from the data store and displays them
 function loadQuestions() {
@@ -254,6 +255,7 @@ function loadQuestions() {
         if (data.thereIsMore) {
             instanciateLoadMoreButton();
         }
+        updateLogInOutButton(data.isLoggedIn);
         fetchBlobstoreUrl();
     });
 }
@@ -281,5 +283,15 @@ function fetchBlobstoreUrl() {
 // This function gets called when the upload file button in clicked
 function onUploadFileClick() {
     const chooseFileInput = document.getElementById('choose-file');
-    chooseFileInput.innerHTML = '<input type="file" name="image" accept="image/*">';
+    chooseFileInput.innerHTML = '<input type="file"\
+    name="image" accept="image/*">';
+}
+
+function updateLogInOutButton(isLoggedIn) {
+    const logInOutButton = document.getElementById('log-in-out');
+    if (isLoggedIn) {
+        logInOutButton.innerText = 'Logout';
+    } else {
+        logInOutButton.innerText = 'Login';
+    }
 }
