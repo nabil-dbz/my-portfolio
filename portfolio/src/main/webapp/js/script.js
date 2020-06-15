@@ -194,6 +194,7 @@ function createMessage(id, message, isQuestion, imageUrl) {
     question.style.backgroundColor = isQuestion ? 'lightblue' : 'lightgreen';
     question.appendChild(createText(message));
     question.addEventListener('mousedown', onMessageClicked);
+    question.ondblclick = onMessageDoubleClicked;
     if (imageUrl !== '') {
         question.appendChild(createImage(imageUrl));
     }
@@ -228,6 +229,10 @@ function onMessageClicked(event) {
             loadQuestions();
         });
     }
+}
+function onMessageDoubleClicked (event) {
+    const questionId = event.currentTarget.id.substr(0, event.currentTarget.id.length - 1);
+    window.location.href = '/post-id?' + questionId;
 }
 // This function retrieves the questions from the data store and displays them
 function loadQuestions() {
