@@ -178,11 +178,7 @@ function addListItem(text, nodeParent) {
     nodeParent.appendChild(item);
 }
 
-function onKeyDown(event) {
-    if (event.keyCode !== ENTER_KEY) {
-        return;
-    }
-    event.preventDefault();
+function onSendClick() {
     const form = document.getElementById('my-form');
     form.submit();
 }
