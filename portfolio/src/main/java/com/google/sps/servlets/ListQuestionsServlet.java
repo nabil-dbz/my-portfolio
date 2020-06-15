@@ -15,6 +15,8 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.repackaged.com.google.gson.Gson;
 
 @WebServlet("/list-questions")
@@ -51,11 +53,14 @@ public class ListQuestionsServlet extends HttpServlet{
             Question question = new Question(id, message, answer, timestamp, image);
             questions.add(question);
         }
-
+        UserService userService = UserServiceFactory.getUserService();
         response.setContentType("application/json;");
         String json = "{";
         json += "\"thereIsMore\": ";
         json += thereIsMore;
+        json += ", ";
+        json += "\"isLoggedIn\": ";
+        json += userService.isUserLoggedIn();
         json += ", ";
         json += "\"questions\": ";
         json += (new Gson()).toJson(questions);
