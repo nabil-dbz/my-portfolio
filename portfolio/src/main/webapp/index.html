@@ -12,7 +12,7 @@
         <script src="js/script.js"></script>
     </head>
     <body>
-        <nav class="row" style="height: 5%; background-color: gray;">
+        <nav class="row" style="background-color: gray;">
             <div class="nav-wrapper">
                 <ul id="nav-mobile" class="right">
                     <li><a href="/login" class="grey-text text-lighten-3 nav-icon" style="font-size: 1vw">Login</a></li>
@@ -127,13 +127,28 @@
             </div>
             <div class="col s2">
                 <form method="POST" id="my-form" enctype="multipart/form-data">
-                    <div class="row">
-                        <textarea id="askme-input" class="col s11" type="text" name="question" placeholder="Ask Me Anything ..." style="height: 10%" onkeydown="onKeyDown(event)"></textarea>
-                        <a class="col s1 btn" id="file-upload-btn" onclick="onUploadFileClick()"><i class="material-icons" style="color: black; background-color: transparent;">file_upload</i></a>
+                    <div class="card" style="background-color: transparent;">
+                        <div class="text-white rgba-stylish-strong py-5 px-5 z-depth-4">
+                            <!--Header-->
+                            <div class="center-align">
+                                <h3 class="white-text mb-5 mt-4 font-weight-bold">Ask Me!</h3>
+                            </div>
+                            <div class="md-form">
+                                <textarea id="askme-input" class="md-textarea form-control" name="question"
+                                    placeholder="Ask Me Anything ..." style="height: 20vh;"></textarea>
+                            </div>
+                            <div class="center-align">
+                                <button id="file-upload-btn" onclick="onUploadFileClick()" type="button" class="btn btn-success" 
+                                style="background-color: lightgreen; width: 100%">Upload Image</button>
+                            </div>
+                            <div class="row" id="choose-file"></div>
+                            <div class="center-align">
+                                <button type="button" class="btn btn-success" style="background-color: deepskyblue; width: 100%" 
+                                onclick="onSendClick()">Send</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row" id="choose-file"></div>
                 </form>
-                </div>
             </div>
         </div>
         <!-- Import materialize.js-->
