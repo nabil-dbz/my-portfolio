@@ -23,6 +23,16 @@ public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     Collection<TimeRange> collection = new ArrayList<TimeRange>();
     collection.add(TimeRange.WHOLE_DAY);
+    for (Event event: events) {
+      splitTimeRange(event.getWhen().start(), event.getWhen().end(), 
+        getTimeRangeWithEvent(event, collection, request), collection);
+    }
+    for (Iterator<TimeRange> it = collection.iterator(); it.hasNext();) {
+      TimeRange timeRange = it.next();
+      if (timeRange.duration() < request.getDuration()) {
+        it.remove();
+      }
+    }
     return collection;
   }
   /**
