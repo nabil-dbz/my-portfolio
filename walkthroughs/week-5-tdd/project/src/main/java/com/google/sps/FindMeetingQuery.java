@@ -14,10 +14,30 @@
 
 package com.google.sps;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    throw new UnsupportedOperationException("TODO: Implement this method.");
+    Collection<TimeRange> collection = new ArrayList<TimeRange>();
+    collection.add(TimeRange.WHOLE_DAY);
+    return collection;
+  }
+  /**
+   * Check if one of the request meeting attendees is attending an event.
+   *
+   * @param attendees The list of attendees to be invited to the event.
+   * @param event The event in which we want to check the list of attendees.
+   * @return true if one or more of the attendees is in the list of mandatory attendees of the event
+   */
+  private boolean areAttendeesInEvent(Collection<String> attendees, Event event) {
+    for (String attendee: attendees) {
+      if (event.getAttendees().contains(attendee)) {
+        return true;
+      }
+    }
+    return false;
   }
 }
