@@ -26,6 +26,28 @@ public final class FindMeetingQuery {
     return collection;
   }
   /**
+   * Split a time range into to ranges between which we find an event.
+   *
+   * @param start The start time of the event (the end of the first range).
+   * @param end The end time of the event (the satrt of the second range).
+   * @param timeRange The time range that we want to split.
+   * @param lTimeRanges The list of time ranges in which we look for the time range to be returned.
+   */
+  private void splitTimeRange(int start, int end, TimeRange timeRange, Collection<TimeRange> lTimeRanges) {
+    if (timeRange == null) {
+      return;
+    } 
+    if (timeRange.start() < start) {
+      TimeRange firstTimeRange = TimeRange.fromStartEnd(timeRange.start(), start, false);
+      lTimeRanges.add(firstTimeRange);
+    } 
+    if (timeRange.end() > end) {
+      TimeRange secondTimeRange = TimeRange.fromStartEnd(end, timeRange.end(), false);
+      lTimeRanges.add(secondTimeRange);
+    }
+    lTimeRanges.remove(timeRange);
+  }
+  /**
    * Return a time range that overlaps with the event in which at least one of the attendees is present.
    *
    * @param event The event in which should overlap with the time range.
