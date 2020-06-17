@@ -26,6 +26,22 @@ public final class FindMeetingQuery {
     return collection;
   }
   /**
+   * Return a time range that overlaps with the event in which at least one of the attendees is present.
+   *
+   * @param event The event in which should overlap with the time range.
+   * @param lTimeRanges The list of time ranges in which we look for the time range to be returned.
+   * @param request The meeting request.
+   * @return a time range if found, otherwise, null.
+   */
+  private TimeRange getTimeRangeWithEvent(Event event, Collection<TimeRange> lTimeRanges, MeetingRequest request) {
+    for (TimeRange timeRange: lTimeRanges) {
+      if (timeRange.overlaps(event.getWhen()) && areAttendeesInEvent(request.getAttendees(), event)) {
+        return timeRange;
+      }
+    }
+    return null;
+  }
+  /**
    * Check if one of the request meeting attendees is attending an event.
    *
    * @param attendees The list of attendees to be invited to the event.
