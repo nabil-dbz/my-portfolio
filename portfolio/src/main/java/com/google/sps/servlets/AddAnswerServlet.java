@@ -33,8 +33,8 @@ public class AddAnswerServlet extends HttpServlet {
       return;
     }
     if (userService.isUserAdmin()) {
-      RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/answer.jsp");
-      rd.include(request, response);
+      RequestDispatcher reauestDispatcher = request.getRequestDispatcher("/WEB-INF/answer.jsp");
+      reauestDispatcher.include(request, response);
       return;
     }
     response.sendRedirect("/index.html");
