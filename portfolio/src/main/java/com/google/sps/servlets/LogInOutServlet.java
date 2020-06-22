@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.google.appengine.repackaged.com.google.gson.Gson;
 
 @WebServlet("/login")
 public class LogInOutServlet extends HttpServlet {
@@ -21,12 +20,10 @@ public class LogInOutServlet extends HttpServlet {
         response.setContentType("application/json;");
         if (!userService.isUserLoggedIn()) {
             String loginUrl = userService.createLoginURL("/index.html");
-            response.getWriter().println((new Gson()).toJson("In"));
             response.sendRedirect(loginUrl);
             return;
         }
         String logoutUrl = userService.createLogoutURL("/index.html");
-        response.getWriter().println((new Gson()).toJson("Out"));
         response.sendRedirect(logoutUrl);
     }
 }
