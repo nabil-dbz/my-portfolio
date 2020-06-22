@@ -178,11 +178,7 @@ function addListItem(text, nodeParent) {
     nodeParent.appendChild(item);
 }
 
-function onKeyDown(event) {
-    if (event.keyCode !== ENTER_KEY) {
-        return;
-    }
-    event.preventDefault();
+function onSendClick() {
     const form = document.getElementById('my-form');
     form.submit();
 }
@@ -198,7 +194,8 @@ function createMessage(id, message, isQuestion, imageUrl) {
     question.style.backgroundColor = isQuestion ? 'lightblue' : 'lightgreen';
     question.appendChild(createText(message));
     question.addEventListener('mousedown', onMessageClicked);
-    if (imageUrl !== '') {
+    question.ondblclick = onMessageDoubleClicked;
+    if (imageUrl !== '' && isQuestion) {
         question.appendChild(createImage(imageUrl));
     }
     const questionsSection = document.getElementById('questions-answers');
@@ -233,6 +230,11 @@ function onMessageClicked(event) {
         });
     }
 }
+
+function onMessageDoubleClicked (event) {
+    const questionId = event.currentTarget.id.substr(0, event.currentTarget.id.length - 1);
+    window.location.href = '/add-answer?' + questionId;
+}
 // This function retrieves the questions from the data store and displays them
 function loadQuestions() {
     const questionsSection = document.getElementById('questions-answers');
@@ -253,6 +255,7 @@ function loadQuestions() {
         if (data.thereIsMore) {
             instanciateLoadMoreButton();
         }
+        updateLogInOutButton(data.isLoggedIn);
         fetchBlobstoreUrl();
     });
 }
@@ -280,5 +283,15 @@ function fetchBlobstoreUrl() {
 // This function gets called when the upload file button in clicked
 function onUploadFileClick() {
     const chooseFileInput = document.getElementById('choose-file');
-    chooseFileInput.innerHTML = '<input type="file" name="image" accept="image/*">';
+    chooseFileInput.innerHTML = '<input type="file"\
+    name="image" accept="image/*">';
+}
+
+function updateLogInOutButton(isLoggedIn) {
+    const logInOutButton = document.getElementById('log-in-out');
+    if (isLoggedIn) {
+        logInOutButton.innerText = 'Logout';
+    } else {
+        logInOutButton.innerText = 'Login';
+    }
 }

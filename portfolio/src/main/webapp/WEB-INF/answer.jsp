@@ -14,8 +14,8 @@
         <div id="container">
             <h3 class="center-align">Answering the Questions Asked</h3>
             <form method="POST" action="/add-answer">
-                <label style="font-size: 1.5rem; color: black">Question id:</label>
-                <input type="text" name="question-id"/>
+                <label style="font-size: 1.5rem; color: black">Question id</label>
+                <input type="text" value="<%=request.getQueryString()%>" name="question-id"/>
                 <label style="font-size: 1.5rem; color: black">Answer:</label>
                 <textarea style="height: auto" name="answer" placeholder="Type in the answer ... " rows="10"></textarea>
                 <input class="right-align" type="submit" value="Submit">

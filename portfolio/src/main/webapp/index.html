@@ -12,22 +12,34 @@
         <script src="js/script.js"></script>
     </head>
     <body>
-        <div class="row my-wrapper valign-wrapper">
-            <div class="col s1 center-align">
-                <ul>       
-                    <li class="card-panel transparent tab row s1 center-align"><a href="#about-me" class="grey-text text-lighten-3 nav-icon" style="font-size: 1vw">About Me</a></li>
-                    <li class="card-panel transparent tab row s1 center-align"><a href="#experience" class="grey-text text-lighten-3 nav-icon" style="font-size: 1vw">Experience</a></li>
-                    <li class="card-panel transparent tab row s1 center-align"><a href="#projetcs" class="grey-text text-lighten-3 nav-icon" style="font-size: 1vw">Projects</a></li>
-                    <li class="card-panel transparent tab row s1 center-align"><a href="#activities" class="grey-text text-lighten-3 nav-icon" style="font-size: 1vw">Activities</a></li>
-                    <li class="card-panel transparent tab row s1 center-align"><a href="#travels" class="grey-text text-lighten-3 nav-icon" style="font-size: 1vw">Travels</a></li>
-                    <li class="card-panel transparent tab row s1 center-align"><a href="#hobbies" class="grey-text text-lighten-3 nav-icon" style="font-size: 1vw">Hobbies</a></li>
+        <nav class="row" style="background-color: gray;">
+            <div class="nav-wrapper">
+                <ul id="nav-mobile" class="right">
+                    <li><a id="log-in-out" href="/login" class="grey-text text-lighten-3 nav-icon" style="font-size: 1.5vw"
+                         onclick="fetch('/login')">Login/Logout</a></li>
+                </ul>
+                <ul id="nav-mobile" class="lfet">       
+                    <li><a href="#about-me" class="grey-text text-lighten-3 nav-icon" style="font-size: 1.5vw">About Me</a></li>
+                    <li><a href="#experience" class="grey-text text-lighten-3 nav-icon" style="font-size: 1.5vw">Experience</a></li>
+                    <li><a href="#projetcs" class="grey-text text-lighten-3 nav-icon" style="font-size: 1.5vw">Projects</a></li>
+                    <li><a href="#activities" class="grey-text text-lighten-3 nav-icon" style="font-size: 1.5vw">Activities</a></li>
+                    <li><a href="#travels" class="grey-text text-lighten-3 nav-icon" style="font-size: 1.5vw">Travels</a></li>
+                    <li><a href="#hobbies" class="grey-text text-lighten-3 nav-icon" style="font-size: 1.5vw">Hobbies</a></li>
                 </ul>
             </div>
-            <div class="col s1"></div>
+        </nav>
+        <div class="row my-wrapper valign-wrapper">
+            <div class="col s2 center-align">
+                <div id="chat-room" class="card-panel center-align">
+                    <div class="rwo"><h5 class="grey-text text-lighten-3 center-align" style="font-size: 1.4vw;">Questions & Answers</h5></div>
+                    <div id="questions-answers" class="row left-align"></div>
+                    <div id="load-more-container" class="center-align row"></div>
+                </div>
+            </div>
             <div class="col s8 center-align">
                 <div class="row header">
                     <div class="divider about-me-divider"></div> 
-                    <h1 class="center-align intro-text" style="font-size:4vw; margin: 0">NABIL DABOUZ</h1>
+                    <h1 class="center-align big-title">NABIL DABOUZ</h1>
                     <h4 class="center-align intro-text" style="font-size:1.5vw; margin: 0">Computer Engineering Student | Google STEP Intern | Robotics Coordinator</h4>
                 </div>
                 <div class="row scrolling-box">
@@ -35,7 +47,7 @@
                     <div id="about-me">
                         <!--Add a bio-->
                         <div class="divider about-me-divider"></div>
-                        <h1 class="center-align intro-text" style="font-size:4vw">ABOUT ME</h1>
+                        <h1 class="center-align big-title">ABOUT ME</h1>
                         <div id="bio" class="row">
                             <div class="col s2"></div>
                             <img src="images/my-photo.JPG" class="col s3 circle responsive-img" style="opacity:0.8"/>
@@ -51,7 +63,7 @@
 
                     <div id="experience">
                         <div class="divider about-me-divider"></div> 
-                        <h1 class="center-align intro-text" style="font-size:4vw">EXPERIENCES</h1>
+                        <h1 class="center-align big-title">EXPERIENCES</h1>
                         <h4 class="center-align intro-text" id="experience-title">Google STEP Intern</h4>
                         <div class="carousel companies">
                             <a class="carousel-item" href="#one!" onclick="updateExperienceDescription('Google')"><img src="images/google.jpg"></a>
@@ -67,7 +79,7 @@
 
                     <div id="projetcs">
                         <div class="divider about-me-divider"></div> 
-                        <h1 class="center-align intro-text" style="font-size:4vw">PROJECTS</h1>
+                        <h1 class="center-align big-title">PROJECTS</h1>
                         <ul class="collapsible center-align">
                             <li>
                             <div class="collapsible-header transparent"><h6 class="white-text">PolyDessin - Web Application</h6></div>
@@ -115,18 +127,29 @@
                 </div>
             </div>
             <div class="col s2">
-                <div id="chat-room" class="card-panel">
-                    <div class="rwo"><h5 class="chat-room-title center-align">Questions & Answers</h5></div>
-                    <form method="POST" id="my-form" enctype="multipart/form-data">
-                        <div class="row">
-                            <textarea id="askme-input" class="col s11" type="text" name="question" placeholder="Ask Me Anything ..." style="height: 10%" onkeydown="onKeyDown(event)"></textarea>
-                            <a class="col s1 btn" id="file-upload-btn" onclick="onUploadFileClick()"><i class="material-icons" style="color: black; background-color: transparent;">file_upload</i></a>
+                <form method="POST" id="my-form" enctype="multipart/form-data">
+                    <div class="card" style="background-color: transparent;">
+                        <div class="text-white rgba-stylish-strong py-5 px-5 z-depth-4">
+                            <!--Header-->
+                            <div class="center-align">
+                                <h3 id="big-title" class="white-text" style="font-size: 3 vw;">ASK ME!</h3>
+                            </div>
+                            <div class="md-form">
+                                <textarea id="askme-input" class="md-textarea form-control" name="question"
+                                    placeholder="Ask Me Anything ..." style="height: 20vh;"></textarea>
+                            </div>
+                            <div class="center-align">
+                                <button id="file-upload-btn" onclick="onUploadFileClick()" type="button" class="btn btn-success" 
+                                style="background-color: lightgreen; width: 100%">Upload Image</button>
+                            </div>
+                            <div class="row" id="choose-file"></div>
+                            <div class="center-align">
+                                <button type="button" class="btn btn-success" style="background-color: deepskyblue; width: 100%" 
+                                onclick="onSendClick()">Send</button>
+                            </div>
                         </div>
-                        <div class="row" id="choose-file"></div>
-                    </form>
-                    <div id="questions-answers" class="row"></div>
-                    <div id="load-more-container" class="center-align row"></div>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
         <!-- Import materialize.js-->

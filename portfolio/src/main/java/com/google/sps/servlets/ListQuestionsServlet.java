@@ -1,5 +1,8 @@
 package com.google.sps.servlets;
 
+import com.google.sps.LoadedQuestions;
+import com.google.sps.Question;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +18,8 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.repackaged.com.google.gson.Gson;
 
 @WebServlet("/list-questions")
@@ -34,12 +39,11 @@ public class ListQuestionsServlet extends HttpServlet{
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
 
-        List<Question> questions = new ArrayList<>();
-        boolean thereIsMore = false;
+        LoadedQuestions listQuestions = new LoadedQuestions(false, false);
         int counter = 0;
         for (Entity entity: results.asIterable()) {
             if (counter == limit) {
-                thereIsMore = true;
+                listQuestions.thereIsMore = true;
                 break;
             }
             counter++;
@@ -49,17 +53,11 @@ public class ListQuestionsServlet extends HttpServlet{
             long timestamp = (long)entity.getProperty("timestamp");
             String image = (String)entity.getProperty("image");
             Question question = new Question(id, message, answer, timestamp, image);
-            questions.add(question);
+            listQuestions.questions.add(question);
         }
-
+        UserService userService = UserServiceFactory.getUserService();
         response.setContentType("application/json;");
-        String json = "{";
-        json += "\"thereIsMore\": ";
-        json += thereIsMore;
-        json += ", ";
-        json += "\"questions\": ";
-        json += (new Gson()).toJson(questions);
-        json += "}";
-        response.getWriter().println(json);
+        listQuestions.isLoggedIn = userService.isUserLoggedIn();
+        response.getWriter().println((new Gson()).toJson(listQuestions));
     }
 }

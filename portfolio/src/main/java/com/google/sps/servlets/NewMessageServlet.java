@@ -36,6 +36,8 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.repackaged.com.google.gson.Gson;
 
 /** Servlet that returns some example content. **/
@@ -48,13 +50,20 @@ public class NewMessageServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String message = request.getParameter("question");
     String imageUrl = getUploadedFileUrl(request, "image");
+    UserService userService = UserServiceFactory.getUserService();
+    if (!userService.isUserLoggedIn()) {
+      String loginUrl = userService.createLoginURL("/index.html");
+      response.sendRedirect(loginUrl);
+      return;
+    }
     if (!message.equals("")) {
       long timestamp = System.currentTimeMillis();
-  
+      String userId = userService.getCurrentUser().getUserId();
       Entity messageEntity = new Entity("Question");
       messageEntity.setProperty("question", message);
       messageEntity.setProperty("answer", "");
       messageEntity.setProperty("timestamp", timestamp);
+      messageEntity.setProperty("user id", userId);
       imageUrl = imageUrl != null ? imageUrl : "";
       messageEntity.setProperty("image", imageUrl);
   
