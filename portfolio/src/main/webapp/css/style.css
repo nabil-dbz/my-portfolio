@@ -162,3 +162,10 @@ body {
 #my-form textarea.md-textarea  {
     color: #fff;
 }
+
+.big-title {
+    font-size: 3vw;
+    margin: 0;
+    color: white;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
