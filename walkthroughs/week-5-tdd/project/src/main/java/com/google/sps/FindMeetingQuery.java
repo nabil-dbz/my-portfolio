@@ -24,8 +24,11 @@ public final class FindMeetingQuery {
     Collection<TimeRange> resultTimeRanges = new ArrayList<TimeRange>();
     resultTimeRanges.add(TimeRange.WHOLE_DAY);
     for (Event event: events) {
-      splitTimeRange(event.getWhen().start(), event.getWhen().end(), 
-        getTimeRangeWithEvent(event, resultTimeRanges, request), collection);
+      splitTimeRange(
+        event.getWhen().start(), 
+        event.getWhen().end(), 
+        getTimeRangeWithEvent(event, resultTimeRanges, request), 
+        resultTimeRanges);
     }
     for (Iterator<TimeRange> it = resultTimeRanges.iterator(); it.hasNext();) {
       TimeRange timeRange = it.next();
