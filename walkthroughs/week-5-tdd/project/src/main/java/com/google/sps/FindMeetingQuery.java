@@ -21,19 +21,19 @@ import java.util.Iterator;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    Collection<TimeRange> collection = new ArrayList<TimeRange>();
-    collection.add(TimeRange.WHOLE_DAY);
+    Collection<TimeRange> resultTimeRanges = new ArrayList<TimeRange>();
+    resultTimeRanges.add(TimeRange.WHOLE_DAY);
     for (Event event: events) {
       splitTimeRange(event.getWhen().start(), event.getWhen().end(), 
-        getTimeRangeWithEvent(event, collection, request), collection);
+        getTimeRangeWithEvent(event, resultTimeRanges, request), collection);
     }
-    for (Iterator<TimeRange> it = collection.iterator(); it.hasNext();) {
+    for (Iterator<TimeRange> it = resultTimeRanges.iterator(); it.hasNext();) {
       TimeRange timeRange = it.next();
       if (timeRange.duration() < request.getDuration()) {
         it.remove();
       }
     }
-    return collection;
+    return resultTimeRanges;
   }
   /**
    * Split a time range into to ranges between which we find an event.
@@ -41,32 +41,32 @@ public final class FindMeetingQuery {
    * @param start The start time of the event (the end of the first range).
    * @param end The end time of the event (the satrt of the second range).
    * @param timeRange The time range that we want to split.
-   * @param lTimeRanges The list of time ranges in which we look for the time range to be returned.
+   * @param timeRanges The list of time ranges in which we look for the time range to be returned.
    */
-  private void splitTimeRange(int start, int end, TimeRange timeRange, Collection<TimeRange> lTimeRanges) {
+  private void splitTimeRange(int start, int end, TimeRange timeRange, Collection<TimeRange> timeRanges) {
     if (timeRange == null) {
       return;
     } 
     if (timeRange.start() < start) {
       TimeRange firstTimeRange = TimeRange.fromStartEnd(timeRange.start(), start, false);
-      lTimeRanges.add(firstTimeRange);
+      timeRanges.add(firstTimeRange);
     } 
     if (timeRange.end() > end) {
       TimeRange secondTimeRange = TimeRange.fromStartEnd(end, timeRange.end(), false);
-      lTimeRanges.add(secondTimeRange);
+      timeRanges.add(secondTimeRange);
     }
-    lTimeRanges.remove(timeRange);
+    timeRanges.remove(timeRange);
   }
   /**
    * Return a time range that overlaps with the event in which at least one of the attendees is present.
    *
    * @param event The event in which should overlap with the time range.
-   * @param lTimeRanges The list of time ranges in which we look for the time range to be returned.
+   * @param timeRanges The list of time ranges in which we look for the time range to be returned.
    * @param request The meeting request.
    * @return a time range if found, otherwise, null.
    */
-  private TimeRange getTimeRangeWithEvent(Event event, Collection<TimeRange> lTimeRanges, MeetingRequest request) {
-    for (TimeRange timeRange: lTimeRanges) {
+  private TimeRange getTimeRangeWithEvent(Event event, Collection<TimeRange> timeRanges, MeetingRequest request) {
+    for (TimeRange timeRange: timeRanges) {
       if (timeRange.overlaps(event.getWhen()) && areAttendeesInEvent(request.getAttendees(), event)) {
         return timeRange;
       }
