@@ -35,6 +35,7 @@ public final class FindMeetingQuery {
     }
     return resultTimeRanges;
   }
+  
   /**
    * Split a time range into to ranges between which we find an event.
    *
@@ -57,6 +58,7 @@ public final class FindMeetingQuery {
     }
     timeRanges.remove(timeRange);
   }
+
   /**
    * Return a time range that overlaps with the event in which at least one of the attendees is present.
    *
@@ -73,6 +75,7 @@ public final class FindMeetingQuery {
     }
     return null;
   }
+
   /**
    * Check if one of the request meeting attendees is attending an event.
    *
