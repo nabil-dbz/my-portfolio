@@ -35,9 +35,9 @@ public final class FindMeetingQuery {
     }
     return resultTimeRanges;
   }
-  
+
   /**
-   * Split a time range into to ranges between which we find an event.
+   * Split a time range into two while leaving a gap in the middle. Add the resulting time ranges into a provided list and attempt to remove the original time range from the list.
    *
    * @param start The start time of the event (the end of the first range).
    * @param end The end time of the event (the satrt of the second range).
@@ -60,7 +60,7 @@ public final class FindMeetingQuery {
   }
 
   /**
-   * Return a time range that overlaps with the event in which at least one of the attendees is present.
+   * Iterate through a list of events and return the TimeRange of the first event that overlaps with the request.
    *
    * @param event The event in which should overlap with the time range.
    * @param timeRanges The list of time ranges in which we look for the time range to be returned.
